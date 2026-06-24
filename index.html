@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Нормативная база — Техэксперт</title>
+    <!-- Font Awesome 6 (бесплатная версия) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ============================================
            RESET & BASE — Neumorphism + Glassmorphism
@@ -343,7 +345,13 @@
         .doc-meta span {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+        }
+
+        .doc-meta i {
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
         }
 
         /* ============================================
@@ -417,6 +425,7 @@
             font-size: 48px;
             display: block;
             margin-bottom: 16px;
+            color: var(--gray-300);
         }
 
         .empty-state h3 {
@@ -505,7 +514,7 @@
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -537,6 +546,13 @@
             cursor: pointer;
             transition: all 0.25s ease;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pdf-viewer-toolbar .controls button i {
+            font-size: 14px;
         }
 
         .pdf-viewer-toolbar .controls button:hover:not(:disabled) {
@@ -560,6 +576,11 @@
             display: flex;
             align-items: center;
             gap: 4px;
+        }
+
+        .pdf-viewer-toolbar .controls .zoom-group button {
+            padding: 6px 12px;
+            font-size: 16px;
         }
 
         .pdf-viewer-toolbar .controls .zoom-group span {
@@ -704,6 +725,7 @@
             font-size: 48px;
             display: block;
             margin-bottom: 16px;
+            color: rgba(255, 200, 0, 0.5);
         }
 
         .pdf-viewer-body .pdf-error h3 {
@@ -757,6 +779,9 @@
             color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .pdf-search-results .header .close-btn {
@@ -848,6 +873,7 @@
 
         .app-footer .heart {
             color: #ff6b6b;
+            margin: 0 4px;
         }
 
         /* ============================================
@@ -925,7 +951,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="brand">
-                    <div class="brand-icon">📘</div>
+                    <div class="brand-icon"><i class="fas fa-book-open"></i></div>
                     <div>
                         <h1>Нормативная база</h1>
                         <span class="sub">СП · ГОСТ · СНиП — автомобильные дороги</span>
@@ -945,9 +971,9 @@
             <!-- Search -->
             <section class="search-section">
                 <div class="search-wrapper">
-                    <span class="icon">🔍</span>
+                    <span class="icon"><i class="fas fa-search"></i></span>
                     <input type="text" id="searchInput" placeholder="Поиск по всем документам…" autocomplete="off" />
-                    <button class="clear-btn" id="clearBtn">✕</button>
+                    <button class="clear-btn" id="clearBtn"><i class="fas fa-times"></i></button>
                 </div>
             </section>
 
@@ -973,7 +999,7 @@
 
             <!-- Empty state -->
             <div id="emptyState" class="empty-state" style="display:none;">
-                <span class="big-icon">📭</span>
+                <span class="big-icon"><i class="fas fa-folder-open"></i></span>
                 <h3>Нет документов</h3>
                 <p>Попробуйте изменить фильтр</p>
             </div>
@@ -991,26 +1017,26 @@
     <div class="pdf-viewer-overlay" id="pdfViewer">
         <div class="pdf-viewer-toolbar">
             <div class="left">
-                <button class="close-btn" id="pdfCloseBtn">✕</button>
+                <button class="close-btn" id="pdfCloseBtn"><i class="fas fa-times"></i></button>
                 <span class="doc-title" id="pdfDocTitle">Документ</span>
             </div>
             <div class="controls">
-                <button id="pdfPrevBtn">← Пред.</button>
+                <button id="pdfPrevBtn"><i class="fas fa-chevron-left"></i> Пред.</button>
                 <span class="page-info" id="pdfPageInfo">1 / 1</span>
-                <button id="pdfNextBtn">След. →</button>
+                <button id="pdfNextBtn">След. <i class="fas fa-chevron-right"></i></button>
                 <div class="zoom-group">
-                    <button id="pdfZoomOut">−</button>
+                    <button id="pdfZoomOut"><i class="fas fa-minus"></i></button>
                     <span id="pdfZoomInfo">100%</span>
-                    <button id="pdfZoomIn">+</button>
+                    <button id="pdfZoomIn"><i class="fas fa-plus"></i></button>
                 </div>
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
+                    <span class="search-icon"><i class="fas fa-search"></i></span>
                     <input type="text" id="pdfSearchInput" placeholder="Поиск в документе…" />
                     <span class="search-count" id="pdfSearchCount">0/0</span>
                     <div class="search-nav">
-                        <button id="pdfSearchPrev" title="Предыдущее">▲</button>
-                        <button id="pdfSearchNext" title="Следующее">▼</button>
-                        <button id="pdfSearchToggle" title="Список результатов">☰</button>
+                        <button id="pdfSearchPrev" title="Предыдущее"><i class="fas fa-chevron-up"></i></button>
+                        <button id="pdfSearchNext" title="Следующее"><i class="fas fa-chevron-down"></i></button>
+                        <button id="pdfSearchToggle" title="Список результатов"><i class="fas fa-list"></i></button>
                     </div>
                 </div>
             </div>
@@ -1022,7 +1048,7 @@
                 <div class="highlight-overlay" id="highlightOverlay"></div>
             </div>
             <div id="pdfError" class="pdf-error" style="display:none;">
-                <span class="big-icon">⚠️</span>
+                <span class="big-icon"><i class="fas fa-exclamation-triangle"></i></span>
                 <h3>Не удалось загрузить PDF</h3>
                 <p id="pdfErrorMsg">Файл не найден или недоступен.</p>
             </div>
@@ -1032,8 +1058,8 @@
     <!-- ========== PDF SEARCH RESULTS SIDEBAR ========== -->
     <div class="pdf-search-results" id="pdfSearchResults">
         <div class="header">
-            <h4>Результаты поиска</h4>
-            <button class="close-btn" id="pdfSearchResultsClose">✕</button>
+            <h4><i class="fas fa-list-ul"></i> Результаты поиска</h4>
+            <button class="close-btn" id="pdfSearchResultsClose"><i class="fas fa-times"></i></button>
         </div>
         <div class="list" id="pdfSearchResultsList"></div>
     </div>
@@ -1043,7 +1069,7 @@
         <div class="container">
             <p>
                 Разработчик <strong>Чумак Кирилл</strong>
-                <span class="heart">❤</span>
+                <span class="heart"><i class="fas fa-heart"></i></span>
                 <span style="color:var(--gray-300);">|</span>
                 Нормативная база автомобильных дорог
             </p>
@@ -1056,7 +1082,7 @@
 
     <script>
         // ============================================================
-        //  CONFIG
+        //  CONFIG — исправленные ссылки на PDF-файлы
         // ============================================================
         const DOCUMENTS = [{
             id: 'sp-34-13330-2021',
@@ -1071,49 +1097,49 @@
             fullName: 'Дороги автомобильные общего пользования. Геометрические элементы',
             type: 'ГОСТ',
             year: 2015,
-            url: 'documents/ГОСТ 33475-2015 Дороги автомобильные общего пользования. Геометрические элементы.pdf'
+            url: 'documents/gost-33475-2015.pdf'
         }, {
             id: 'gost-r-52289-2019',
             title: 'ГОСТ Р 52289-2019',
             fullName: 'Технические средства организации дорожного движения',
             type: 'ГОСТ',
             year: 2019,
-            url: 'documents/ГОСТ Р 52289-2019 Технические средства организации дорожного движения.pdf'
+            url: 'documents/gost-r-52289-2019.pdf'
         }, {
             id: 'gost-r-58653-2019',
             title: 'ГОСТ Р 58653-2019',
             fullName: 'Дороги автомобильные общего пользования. Пересечения и примыкания',
             type: 'ГОСТ',
             year: 2019,
-            url: 'documents/ГОСТ Р 58653-2019 Дороги автомобильные общего пользования. Пересечения и примыкания.pdf'
+            url: 'documents/gost-r-58653-2019.pdf'
         }, {
             id: 'gost-r-58818-2020',
             title: 'ГОСТ Р 58818-2020',
             fullName: 'Дороги автомобильные с низкой интенсивностью движения',
             type: 'ГОСТ',
             year: 2020,
-            url: 'documents/ГОСТ Р 58818-2020 Дороги автомобильные с низкой интенсивностью движения.pdf'
+            url: 'documents/gost-r-58818-2020.pdf'
         }, {
             id: 'gost-r-59611-2021',
             title: 'ГОСТ Р 59611-2021',
             fullName: 'Дороги автомобильные общего пользования. Система водоотвода',
             type: 'ГОСТ',
             year: 2021,
-            url: 'documents/ГОСТ Р 59611-2021 Дороги автомобильные общего пользования. Система водоотвода.pdf'
+            url: 'documents/gost-r-59611-2021.pdf'
         }, {
             id: 'gost-r-70555-2022',
             title: 'ГОСТ Р 70555-2022',
             fullName: 'Дороги автомобильные общего пользования. Пересечения кольцевые',
             type: 'ГОСТ',
             year: 2022,
-            url: 'documents/ГОСТ Р 70555-2022 Дороги автомобильные общего пользования. Пересечения кольцевые.pdf'
+            url: 'documents/gost-r-70555-2022.pdf'
         }, {
             id: 'gost-r-71404-2024',
             title: 'ГОСТ Р 71404-2024',
             fullName: 'Дороги автомобильные общего пользования. Нежесткие дорожные одежды',
             type: 'ГОСТ',
             year: 2024,
-            url: 'documents/ГОСТ Р 71404-2024 Дороги автомобильные общего пользования. Нежесткие дорожные одежды.pdf'
+            url: 'documents/gost-r-71404-2024.pdf'
         }];
 
         // ============================================================
@@ -1302,8 +1328,8 @@
                         <div class="doc-title">${doc.title}</div>
                         <div class="doc-fullname">${doc.fullName}</div>
                         <div class="doc-meta">
-                            <span>📅 ${doc.year}</span>
-                            <span>📄 ${doc.pages || '?'} стр.</span>
+                            <span><i class="fas fa-calendar-alt"></i> ${doc.year}</span>
+                            <span><i class="fas fa-file-pdf"></i> ${doc.pages || '?'} стр.</span>
                         </div>
                     </div>
                 `).join('');
@@ -1346,7 +1372,7 @@
             if (filtered.length === 0) {
                 searchResults.innerHTML = `
                         <div class="empty-state">
-                            <span class="big-icon">🔍</span>
+                            <span class="big-icon"><i class="fas fa-search"></i></span>
                             <h3>Ничего не найдено</h3>
                             <p>Попробуйте изменить запрос</p>
                         </div>
@@ -1372,6 +1398,7 @@
 
             searchResults.innerHTML = `
                     <div style="margin-bottom:10px;font-size:14px;color:var(--gray-400);">
+                        <i class="fas fa-file-alt" style="margin-right:6px;"></i>
                         Найдено: <strong style="color:var(--gray-600);">${filtered.length}</strong>
                         ${currentFilter !== 'all' ? `в категории «${currentFilter}»` : ''}
                     </div>
@@ -1614,7 +1641,7 @@
                 pdfSearchResultsList.innerHTML = results.map((r, i) => `
                         <div class="item ${i === pdfSearchIndex ? 'active' : ''}" data-index="${i}">
                             ${r.snippet}
-                            <span class="page-label">Страница ${r.page}</span>
+                            <span class="page-label"><i class="fas fa-file-pdf"></i> Страница ${r.page}</span>
                         </div>
                     `).join('');
 
@@ -1629,7 +1656,7 @@
                 goToPDFSearchResult(0);
             } else {
                 pdfSearchResultsPanel.classList.remove('active');
-                pdfSearchResultsList.innerHTML = '<div class="empty">Ничего не найдено</div>';
+                pdfSearchResultsList.innerHTML = '<div class="empty"><i class="fas fa-search" style="margin-right:8px;"></i>Ничего не найдено</div>';
                 pdfSearchResultsPanel.classList.add('active');
             }
         }
@@ -1669,10 +1696,29 @@
         //  STATUS
         // ============================================================
         function showStatus(type, message) {
-            const icons = { success: '✅', error: '⚠️', info: 'ℹ️' };
+            const icons = {
+                success: '<i class="fas fa-check-circle"></i>',
+                error: '<i class="fas fa-exclamation-circle"></i>',
+                info: '<i class="fas fa-info-circle"></i>'
+            };
+            const colors = {
+                success: 'rgba(74,142,255,0.1)',
+                error: 'rgba(255,68,68,0.1)',
+                info: 'rgba(74,142,255,0.1)'
+            };
+            const borderColors = {
+                success: 'rgba(74,142,255,0.15)',
+                error: 'rgba(255,68,68,0.15)',
+                info: 'rgba(74,142,255,0.15)'
+            };
+            const textColors = {
+                success: 'var(--blue-dark)',
+                error: '#ff6b6b',
+                info: 'var(--blue-dark)'
+            };
             statusBox.innerHTML = `
-                    <div style="padding:12px 20px;border-radius:var(--radius-sm);background:${type === 'error' ? 'rgba(255,68,68,0.1)' : 'rgba(74,142,255,0.1)'};border:1px solid ${type === 'error' ? 'rgba(255,68,68,0.15)' : 'rgba(74,142,255,0.15)'};backdrop-filter:blur(10px);font-size:14px;color:${type === 'error' ? '#ff6b6b' : 'var(--blue-dark)'};">
-                        ${icons[type] || 'ℹ️'} ${message}
+                    <div style="padding:12px 20px;border-radius:var(--radius-sm);background:${colors[type]};border:1px solid ${borderColors[type]};backdrop-filter:blur(10px);font-size:14px;color:${textColors[type]};display:flex;align-items:center;gap:8px;">
+                        ${icons[type]} ${message}
                     </div>
                 `;
             if (type === 'success' || type === 'info') {
