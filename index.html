@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Нормативная база — поиск по документам</title>
+    <title>Нормативная база — Техэксперт</title>
     <style>
         /* ============================================
-           RESET & BASE — Apple‑like
+           RESET & BASE
            ============================================ */
         *,
         *::before,
@@ -19,55 +19,52 @@
         :root {
             --blue: #007aff;
             --blue-hover: #0066d9;
-            --gray-50: #f9f9fb;
-            --gray-100: #f0f0f2;
-            --gray-200: #e5e5ea;
-            --gray-300: #d1d1d6;
-            --gray-400: #aeaeb2;
-            --gray-500: #8e8e93;
-            --gray-600: #636366;
-            --gray-700: #48484a;
-            --gray-800: #2c2c2e;
-            --gray-900: #1c1c1e;
-            --radius: 16px;
-            --radius-sm: 10px;
-            --shadow: 0 8px 30px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.03);
-            --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.10), 0 4px 16px rgba(0, 0, 0, 0.04);
-            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            --gray-50: #f5f5f7;
+            --gray-100: #e8e8ed;
+            --gray-200: #d1d1d6;
+            --gray-300: #aeaeb2;
+            --gray-400: #8e8e93;
+            --gray-500: #636366;
+            --gray-600: #48484a;
+            --gray-700: #2c2c2e;
+            --gray-800: #1c1c1e;
+            --radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
         }
 
         html {
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
             font-family: var(--font);
             background: var(--gray-50);
-            color: var(--gray-900);
+            color: var(--gray-800);
             line-height: 1.5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         /* ============================================
            HEADER
            ============================================ */
         .app-header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-            padding: 20px 0 16px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: saturate(180%) blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 16px 0;
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 100;
         }
 
-        .app-header .container {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -82,172 +79,100 @@
         }
 
         .brand-icon {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             background: var(--blue);
-            border-radius: var(--radius-sm);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 20px;
             color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
         }
 
         .brand h1 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             letter-spacing: -0.02em;
-            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-700) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--gray-800);
         }
 
         .brand .sub {
             font-size: 13px;
-            font-weight: 400;
-            color: var(--gray-500);
-            -webkit-text-fill-color: var(--gray-500);
-            background: none;
+            color: var(--gray-400);
             display: block;
             margin-top: -2px;
-            letter-spacing: 0.01em;
         }
 
         .header-stats {
             font-size: 13px;
-            color: var(--gray-500);
+            color: var(--gray-400);
             background: var(--gray-100);
             padding: 6px 16px;
             border-radius: 20px;
-            white-space: nowrap;
         }
 
         /* ============================================
-           CONTAINER
-           ============================================ */
-        .container {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 0 24px;
-            width: 100%;
-        }
-
-        /* ============================================
-           MAIN
+           MAIN LAYOUT
            ============================================ */
         .app-main {
-            flex: 1;
-            padding: 28px 0 48px;
+            padding: 24px 0 40px;
         }
 
         /* ============================================
-           STATUS BOX
-           ============================================ */
-        #statusBox {
-            margin-bottom: 20px;
-        }
-        .status-msg {
-            padding: 14px 20px;
-            border-radius: var(--radius-sm);
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: fadeSlide 0.35s ease;
-        }
-        .status-msg.success {
-            background: #e8f5e9;
-            color: #1e7a3a;
-            border: 1px solid #c8e6c9;
-        }
-        .status-msg.error {
-            background: #fde8e8;
-            color: #b71c1c;
-            border: 1px solid #f5c6c6;
-        }
-        .status-msg.info {
-            background: #e3f0ff;
-            color: #0051a8;
-            border: 1px solid #b8d4f5;
-        }
-
-        @keyframes fadeSlide {
-            0% {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ============================================
-           SEARCH
+           SEARCH SECTION
            ============================================ */
         .search-section {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
         .search-wrapper {
-            position: relative;
             display: flex;
             align-items: center;
             background: #fff;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            transition: box-shadow var(--transition), border-color var(--transition);
             border: 1.5px solid transparent;
+            transition: all 0.2s;
         }
+
         .search-wrapper:focus-within {
-            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.15), var(--shadow);
             border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.12), var(--shadow);
         }
 
         .search-wrapper .icon {
-            position: absolute;
-            left: 18px;
+            padding: 0 12px 0 16px;
             font-size: 18px;
-            color: var(--gray-400);
-            pointer-events: none;
+            color: var(--gray-300);
         }
 
         .search-wrapper input {
-            width: 100%;
-            padding: 16px 20px 16px 52px;
+            flex: 1;
+            padding: 14px 16px 14px 0;
             font-size: 16px;
-            font-weight: 450;
             border: none;
-            border-radius: var(--radius);
             outline: none;
             background: transparent;
             font-family: var(--font);
-            color: var(--gray-900);
+            color: var(--gray-800);
         }
+
         .search-wrapper input::placeholder {
-            color: var(--gray-400);
-            font-weight: 400;
+            color: var(--gray-300);
         }
+
         .search-wrapper .clear-btn {
-            position: absolute;
-            right: 16px;
             background: none;
             border: none;
+            padding: 0 16px;
             font-size: 18px;
-            color: var(--gray-400);
+            color: var(--gray-300);
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: background 0.2s, color 0.2s;
             display: none;
         }
-        .search-wrapper .clear-btn:hover {
-            background: var(--gray-100);
-            color: var(--gray-700);
-        }
+
         .search-wrapper .clear-btn.visible {
             display: block;
         }
@@ -259,35 +184,31 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .filter-btn {
-            padding: 8px 20px;
+            padding: 6px 18px;
             border: 1.5px solid var(--gray-200);
-            border-radius: 30px;
+            border-radius: 20px;
             background: #fff;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
-            color: var(--gray-600);
+            color: var(--gray-500);
             cursor: pointer;
-            transition: all var(--transition);
+            transition: all 0.2s;
             font-family: var(--font);
-            letter-spacing: 0.01em;
         }
+
         .filter-btn:hover {
             border-color: var(--gray-300);
-            color: var(--gray-800);
+            color: var(--gray-700);
         }
+
         .filter-btn.active {
             background: var(--blue);
             border-color: var(--blue);
             color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
-        }
-        .filter-btn.active:hover {
-            background: var(--blue-hover);
-            border-color: var(--blue-hover);
         }
 
         /* ============================================
@@ -295,17 +216,17 @@
            ============================================ */
         .results-info {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 20px;
             font-size: 14px;
-            color: var(--gray-500);
+            color: var(--gray-400);
         }
+
         .results-info strong {
-            color: var(--gray-800);
-            font-weight: 600;
+            color: var(--gray-700);
         }
 
         /* ============================================
@@ -314,195 +235,153 @@
         .documents-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 16px;
         }
 
         .document-card {
             background: #fff;
             border-radius: var(--radius);
-            padding: 22px 24px 20px;
+            padding: 20px 22px;
             box-shadow: var(--shadow);
-            transition: all var(--transition);
+            transition: all 0.2s;
             border: 1px solid rgba(0, 0, 0, 0.02);
-            display: flex;
-            flex-direction: column;
+            cursor: pointer;
         }
+
         .document-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: rgba(0, 122, 255, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 122, 255, 0.1);
         }
 
         .doc-type-badge {
-            display: inline-block;
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.04em;
             padding: 2px 12px;
-            border-radius: 20px;
+            border-radius: 12px;
             background: var(--gray-100);
-            color: var(--gray-600);
-            margin-bottom: 10px;
-            align-self: flex-start;
+            color: var(--gray-500);
+            display: inline-block;
+            margin-bottom: 8px;
         }
+
         .doc-type-badge.ГОСТ {
             background: #e3f0ff;
             color: #0051a8;
         }
+
         .doc-type-badge.СП {
             background: #e8f5e9;
             color: #1e7a3a;
         }
+
         .doc-type-badge.СНиП {
             background: #fff3e0;
             color: #b45a0e;
         }
 
         .doc-title {
-            font-size: 17px;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            color: var(--gray-900);
-            margin-bottom: 4px;
-            line-height: 1.3;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 2px;
         }
 
         .doc-fullname {
-            font-size: 14px;
-            color: var(--gray-500);
-            margin-bottom: 14px;
-            line-height: 1.4;
-            flex: 1;
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-bottom: 12px;
         }
 
         .doc-meta {
             display: flex;
-            gap: 16px;
-            font-size: 13px;
-            color: var(--gray-400);
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-        .doc-meta span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .btn-open {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: var(--radius-sm);
-            background: var(--gray-100);
-            color: var(--gray-700);
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition);
-            font-family: var(--font);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .btn-open:hover {
-            background: var(--blue);
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.25);
-        }
-        .btn-open:active {
-            transform: scale(0.97);
+            gap: 14px;
+            font-size: 12px;
+            color: var(--gray-300);
         }
 
         /* ============================================
-           SEARCH RESULTS (inline)
+           SEARCH RESULTS
            ============================================ */
         #searchResults {
-            margin-bottom: 28px;
+            display: none;
+            margin-bottom: 24px;
         }
 
         .search-result-item {
             background: #fff;
-            padding: 18px 24px;
-            border-radius: var(--radius-sm);
+            padding: 14px 20px;
+            border-radius: var(--radius);
             border: 1px solid var(--gray-200);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             cursor: pointer;
-            transition: all var(--transition);
-            box-shadow: var(--shadow);
+            transition: all 0.2s;
         }
+
         .search-result-item:hover {
             border-color: var(--blue);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
         .search-result-title {
             font-weight: 600;
-            font-size: 16px;
-            color: var(--gray-900);
-            margin-bottom: 4px;
+            font-size: 15px;
+            color: var(--gray-800);
+            margin-bottom: 2px;
         }
 
         .search-result-context {
             font-size: 14px;
-            color: var(--gray-600);
+            color: var(--gray-500);
             line-height: 1.6;
-            margin-bottom: 4px;
         }
+
         .search-result-context mark {
             background: #ffd60a;
             padding: 1px 4px;
-            border-radius: 4px;
+            border-radius: 3px;
             font-weight: 600;
-            color: var(--gray-900);
-        }
-
-        .search-result-page {
-            font-size: 13px;
-            color: var(--blue);
-            font-weight: 500;
         }
 
         /* ============================================
-           EMPTY & LOADING
+           EMPTY / LOADING
            ============================================ */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: var(--gray-500);
+            color: var(--gray-400);
         }
+
         .empty-state .big-icon {
-            font-size: 56px;
-            margin-bottom: 20px;
+            font-size: 48px;
             display: block;
+            margin-bottom: 16px;
         }
+
         .empty-state h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--gray-700);
-            margin-bottom: 6px;
-        }
-        .empty-state p {
-            font-size: 15px;
+            font-size: 18px;
+            color: var(--gray-600);
+            margin-bottom: 4px;
         }
 
         .loading-state {
             text-align: center;
             padding: 60px 20px;
-            color: var(--gray-500);
+            color: var(--gray-400);
         }
+
         .spinner {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border: 4px solid var(--gray-200);
             border-top-color: var(--blue);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto 16px;
         }
+
         @keyframes spin {
             to {
                 transform: rotate(360deg);
@@ -510,242 +389,378 @@
         }
 
         /* ============================================
-           MODAL (PDF Viewer)
+           PDF VIEWER (FULLSCREEN MODE)
            ============================================ */
-        .modal-overlay {
+        .pdf-viewer-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: #1c1c1e;
             z-index: 1000;
-            padding: 20px;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-box {
-            background: #fff;
-            border-radius: var(--radius);
-            max-width: 960px;
-            width: 100%;
-            max-height: 94vh;
-            display: flex;
             flex-direction: column;
-            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
-            animation: modalIn 0.3s ease;
-        }
-        @keyframes modalIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.96) translateY(12px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
         }
 
-        .modal-header {
-            padding: 18px 24px;
-            border-bottom: 1px solid var(--gray-200);
+        .pdf-viewer-overlay.active {
+            display: flex;
+        }
+
+        .pdf-viewer-toolbar {
+            background: rgba(28, 28, 30, 0.95);
+            backdrop-filter: blur(16px);
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             flex-shrink: 0;
+            min-height: 60px;
         }
-        .modal-header h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--gray-900);
+
+        .pdf-viewer-toolbar .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .pdf-viewer-toolbar .doc-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap;
-            max-width: 70%;
+            max-width: 300px;
         }
-        .modal-close {
+
+        .pdf-viewer-toolbar .close-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #fff;
             width: 36px;
             height: 36px;
-            border: none;
             border-radius: 50%;
-            background: var(--gray-100);
             font-size: 20px;
-            color: var(--gray-600);
             cursor: pointer;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background 0.2s;
             flex-shrink: 0;
         }
-        .modal-close:hover {
-            background: var(--gray-200);
-            color: var(--gray-900);
+
+        .pdf-viewer-toolbar .close-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        .modal-body {
-            flex: 1;
-            overflow: auto;
-            padding: 20px 24px 24px;
+        .pdf-viewer-toolbar .controls {
             display: flex;
-            flex-direction: column;
-        }
-
-        .pdf-controls {
-            display: flex;
+            align-items: center;
+            gap: 8px;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 18px;
-            flex-shrink: 0;
         }
-        .pdf-controls button {
-            padding: 8px 18px;
+
+        .pdf-viewer-toolbar .controls button {
+            background: rgba(255, 255, 255, 0.08);
             border: none;
-            border-radius: var(--radius-sm);
-            background: var(--gray-100);
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray-700);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: var(--font);
-        }
-        .pdf-controls button:hover:not(:disabled) {
-            background: var(--blue);
             color: #fff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: var(--font);
+            cursor: pointer;
+            transition: background 0.2s;
+            font-weight: 500;
         }
-        .pdf-controls button:disabled {
-            opacity: 0.4;
+
+        .pdf-viewer-toolbar .controls button:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        .pdf-viewer-toolbar .controls button:disabled {
+            opacity: 0.3;
             cursor: not-allowed;
         }
-        .pdf-controls .page-info {
-            font-size: 14px;
-            color: var(--gray-500);
-            font-weight: 450;
-            min-width: 100px;
+
+        .pdf-viewer-toolbar .controls .page-info {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            min-width: 80px;
             text-align: center;
         }
-        .pdf-controls .zoom-group {
+
+        .pdf-viewer-toolbar .controls .zoom-group {
             display: flex;
             align-items: center;
             gap: 4px;
         }
-        .pdf-controls .zoom-group button {
-            padding: 6px 14px;
-            font-size: 15px;
-            min-width: 38px;
-        }
-        .pdf-controls .zoom-group span {
-            font-size: 14px;
-            color: var(--gray-500);
-            min-width: 48px;
+
+        .pdf-viewer-toolbar .controls .zoom-group span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            min-width: 44px;
             text-align: center;
-            font-weight: 450;
         }
 
-        #pdfCanvas {
+        /* PDF Search inside viewer */
+        .pdf-viewer-toolbar .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: border-color 0.2s;
+        }
+
+        .pdf-viewer-toolbar .search-box:focus-within {
+            border-color: var(--blue);
+        }
+
+        .pdf-viewer-toolbar .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            padding: 6px 10px;
+            font-size: 13px;
+            font-family: var(--font);
+            width: 140px;
+        }
+
+        .pdf-viewer-toolbar .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .pdf-viewer-toolbar .search-box .search-icon {
+            padding: 0 6px 0 10px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+        }
+
+        .pdf-viewer-toolbar .search-box .search-nav {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            padding-right: 4px;
+        }
+
+        .pdf-viewer-toolbar .search-box .search-nav button {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 4px 8px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .pdf-viewer-toolbar .search-box .search-nav button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .pdf-viewer-toolbar .search-box .search-nav button:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        .pdf-viewer-toolbar .search-box .search-count {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            padding-right: 6px;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .pdf-viewer-body {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: #1c1c1e;
+        }
+
+        .pdf-viewer-body canvas {
             max-width: 100%;
             height: auto;
-            border-radius: var(--radius-sm);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border-radius: 4px;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
             background: #fff;
-            margin: 0 auto;
-            display: block;
         }
 
-        .pdf-error {
+        .pdf-viewer-body .pdf-error {
+            color: rgba(255, 255, 255, 0.6);
             text-align: center;
-            padding: 40px 20px;
-            color: var(--gray-500);
+            padding: 60px 20px;
         }
-        .pdf-error .big-icon {
+
+        .pdf-viewer-body .pdf-error .big-icon {
             font-size: 48px;
             display: block;
             margin-bottom: 16px;
         }
-        .pdf-error h3 {
+
+        .pdf-viewer-body .pdf-error h3 {
+            color: #fff;
             font-size: 18px;
-            color: var(--gray-700);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
-        .pdf-error p {
+
+        .pdf-viewer-body .pdf-error p {
             font-size: 14px;
-            max-width: 440px;
+            max-width: 500px;
             margin: 0 auto;
             word-break: break-word;
+        }
+
+        /* ============================================
+           SEARCH RESULTS LIST inside viewer
+           ============================================ */
+        .pdf-search-results {
+            position: fixed;
+            right: 20px;
+            top: 80px;
+            bottom: 20px;
+            width: 320px;
+            background: rgba(28, 28, 30, 0.95);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+            z-index: 1001;
+        }
+
+        .pdf-search-results.active {
+            display: flex;
+        }
+
+        .pdf-search-results .header {
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .pdf-search-results .header h4 {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .pdf-search-results .header .close-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .pdf-search-results .header .close-btn:hover {
+            color: #fff;
+        }
+
+        .pdf-search-results .list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 12px;
+        }
+
+        .pdf-search-results .list .item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        .pdf-search-results .list .item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .pdf-search-results .list .item mark {
+            background: #ffd60a;
+            padding: 1px 3px;
+            border-radius: 2px;
+            color: #1c1c1e;
+            font-weight: 600;
+        }
+
+        .pdf-search-results .list .item .page-label {
+            display: block;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 4px;
+        }
+
+        .pdf-search-results .list .empty {
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
         }
 
         /* ============================================
            RESPONSIVE
            ============================================ */
         @media (max-width: 768px) {
-            .brand h1 {
-                font-size: 18px;
-            }
-            .brand .sub {
-                font-size: 12px;
-            }
-            .header-stats {
-                font-size: 12px;
-                padding: 4px 14px;
-            }
-            .search-wrapper input {
-                font-size: 15px;
-                padding: 14px 16px 14px 46px;
-            }
-            .search-wrapper .icon {
-                left: 14px;
-                font-size: 16px;
-            }
-            .documents-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-box {
-                max-height: 98vh;
-                border-radius: var(--radius-sm);
-            }
-            .modal-header h2 {
-                font-size: 15px;
-                max-width: 60%;
-            }
-            .modal-body {
-                padding: 12px 12px 16px;
-            }
-            .pdf-controls {
+            .pdf-viewer-toolbar {
+                padding: 10px 14px;
+                flex-direction: column;
+                align-items: stretch;
                 gap: 8px;
             }
-            .pdf-controls button {
-                padding: 6px 12px;
-                font-size: 13px;
+
+            .pdf-viewer-toolbar .left .doc-title {
+                max-width: 150px;
+                font-size: 14px;
             }
-            .container {
-                padding: 0 16px;
+
+            .pdf-viewer-toolbar .controls {
+                justify-content: center;
             }
-            .app-header {
-                padding: 14px 0 12px;
+
+            .pdf-viewer-toolbar .search-box input {
+                width: 100px;
+            }
+
+            .pdf-search-results {
+                right: 10px;
+                left: 10px;
+                width: auto;
+                top: 120px;
+                bottom: 10px;
+            }
+
+            .documents-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            .app-header .container {
+            .header-content {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .header-stats {
-                align-self: flex-start;
+            .pdf-viewer-toolbar .controls {
+                flex-wrap: wrap;
+                justify-content: flex-start;
             }
-            .filters {
-                gap: 6px;
-            }
-            .filter-btn {
-                padding: 6px 14px;
-                font-size: 13px;
+            .pdf-viewer-toolbar .search-box input {
+                width: 80px;
             }
         }
     </style>
@@ -755,14 +770,16 @@
     <!-- ========== HEADER ========== -->
     <header class="app-header">
         <div class="container">
-            <div class="brand">
-                <div class="brand-icon">📘</div>
-                <div>
-                    <h1>Нормативная база</h1>
-                    <span class="sub">СП · ГОСТ · СНиП — автомобильные дороги</span>
+            <div class="header-content">
+                <div class="brand">
+                    <div class="brand-icon">📘</div>
+                    <div>
+                        <h1>Нормативная база</h1>
+                        <span class="sub">СП · ГОСТ · СНиП — автомобильные дороги</span>
+                    </div>
                 </div>
+                <div class="header-stats" id="headerStats">Загрузка…</div>
             </div>
-            <div class="header-stats" id="headerStats">Загрузка…</div>
         </div>
     </header>
 
@@ -777,13 +794,8 @@
             <section class="search-section">
                 <div class="search-wrapper">
                     <span class="icon">🔍</span>
-                    <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Поиск по тексту всех документов…"
-                    autocomplete="off"
-                    />
-                    <button class="clear-btn" id="clearBtn" aria-label="Очистить">✕</button>
+                    <input type="text" id="searchInput" placeholder="Поиск по всем документам…" autocomplete="off" />
+                    <button class="clear-btn" id="clearBtn">✕</button>
                 </div>
             </section>
 
@@ -796,13 +808,13 @@
             </div>
 
             <!-- Results info -->
-            <div class="results-info" id="resultsInfo">
+            <div class="results-info">
                 <span id="statsText">Загрузка документов…</span>
                 <span id="resultCount" style="display:none;"></span>
             </div>
 
-            <!-- Search results (inline) -->
-            <div id="searchResults" style="display:none;"></div>
+            <!-- Search results -->
+            <div id="searchResults"></div>
 
             <!-- Documents grid -->
             <div id="documentsList" class="documents-grid"></div>
@@ -811,47 +823,66 @@
             <div id="emptyState" class="empty-state" style="display:none;">
                 <span class="big-icon">📭</span>
                 <h3>Нет документов</h3>
-                <p>Попробуйте изменить фильтр или загрузите PDF-файлы в папку <code>documents/</code></p>
+                <p>Попробуйте изменить фильтр</p>
             </div>
 
             <!-- Loading state -->
             <div id="loadingState" class="loading-state">
                 <div class="spinner"></div>
-                <p>Обработка документов…</p>
-                <p style="font-size:13px;color:var(--gray-400);margin-top:6px;">Первый запуск может занять несколько секунд</p>
+                <p>Загрузка и обработка документов…</p>
             </div>
 
         </div>
     </main>
 
-    <!-- ========== PDF MODAL ========== -->
-    <div class="modal-overlay" id="pdfModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h2 id="modalTitle">Просмотр документа</h2>
-                <button class="modal-close" id="modalCloseBtn" aria-label="Закрыть">✕</button>
+    <!-- ========== PDF VIEWER (FULLSCREEN) ========== -->
+    <div class="pdf-viewer-overlay" id="pdfViewer">
+        <!-- Toolbar -->
+        <div class="pdf-viewer-toolbar">
+            <div class="left">
+                <button class="close-btn" id="pdfCloseBtn">✕</button>
+                <span class="doc-title" id="pdfDocTitle">Документ</span>
             </div>
-            <div class="modal-body" id="modalBody">
-                <div class="pdf-controls">
-                    <button id="prevBtn">← Пред.</button>
-                    <span class="page-info" id="pageInfo">Страница 1 из 1</span>
-                    <button id="nextBtn">След. →</button>
-                    <div class="zoom-group">
-                        <button id="zoomOutBtn">−</button>
-                        <span id="zoomInfo">100%</span>
-                        <button id="zoomInBtn">+</button>
+            <div class="controls">
+                <button id="pdfPrevBtn">← Пред.</button>
+                <span class="page-info" id="pdfPageInfo">1 / 1</span>
+                <button id="pdfNextBtn">След. →</button>
+                <div class="zoom-group">
+                    <button id="pdfZoomOut">−</button>
+                    <span id="pdfZoomInfo">100%</span>
+                    <button id="pdfZoomIn">+</button>
+                </div>
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="pdfSearchInput" placeholder="Поиск в документе…" />
+                    <span class="search-count" id="pdfSearchCount">0/0</span>
+                    <div class="search-nav">
+                        <button id="pdfSearchPrev" title="Предыдущее">▲</button>
+                        <button id="pdfSearchNext" title="Следующее">▼</button>
+                        <button id="pdfSearchToggle" title="Список результатов">☰</button>
                     </div>
-                </div>
-                <div id="pdfCanvasWrapper">
-                    <canvas id="pdfCanvas"></canvas>
-                </div>
-                <div id="pdfError" class="pdf-error" style="display:none;">
-                    <span class="big-icon">⚠️</span>
-                    <h3>Не удалось загрузить PDF</h3>
-                    <p id="pdfErrorMsg">Файл не найден или недоступен.</p>
                 </div>
             </div>
         </div>
+
+        <!-- Body -->
+        <div class="pdf-viewer-body" id="pdfViewerBody">
+            <canvas id="pdfCanvas"></canvas>
+            <div id="pdfError" class="pdf-error" style="display:none;">
+                <span class="big-icon">⚠️</span>
+                <h3>Не удалось загрузить PDF</h3>
+                <p id="pdfErrorMsg">Файл не найден или недоступен.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PDF SEARCH RESULTS SIDEBAR ========== -->
+    <div class="pdf-search-results" id="pdfSearchResults">
+        <div class="header">
+            <h4>Результаты поиска</h4>
+            <button class="close-btn" id="pdfSearchResultsClose">✕</button>
+        </div>
+        <div class="list" id="pdfSearchResultsList"></div>
     </div>
 
     <!-- ========== PDF.js ========== -->
@@ -860,8 +891,7 @@
 
     <script>
         // ============================================================
-        //  CONFIG — список документов (относительные пути)
-        //  PDF-файлы должны лежать в папке documents/ рядом с index.html
+        //  CONFIG
         // ============================================================
         const DOCUMENTS = [{
             id: 'sp-34-13330-2021',
@@ -922,18 +952,27 @@
         }];
 
         // ============================================================
-        //  ГЛОБАЛЬНЫЕ СОСТОЯНИЯ
+        //  STATE
         // ============================================================
         let documents = [];
         let searchEngine = null;
         let currentFilter = 'all';
+
+        // PDF viewer state
         let pdfDoc = null;
         let currentPage = 1;
         let totalPages = 0;
         let currentScale = 1.4;
+        let currentPdfUrl = '';
+        let currentPdfText = '';
+        let currentPdfTitle = '';
+
+        // PDF search state
+        let pdfSearchResults = [];
+        let pdfSearchIndex = -1;
 
         // ============================================================
-        //  ИНИЦИАЛИЗАЦИЯ PDF.JS
+        //  INIT PDF.JS
         // ============================================================
         if (typeof pdfjsLib !== 'undefined') {
             pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -941,7 +980,7 @@
         }
 
         // ============================================================
-        //  DOM-ССЫЛКИ
+        //  DOM REFS
         // ============================================================
         const $ = (s) => document.querySelector(s);
         const $$ = (s) => document.querySelectorAll(s);
@@ -958,27 +997,36 @@
         const statusBox = $('#statusBox');
         const headerStats = $('#headerStats');
 
-        const modal = $('#pdfModal');
-        const modalTitle = $('#modalTitle');
-        const modalCloseBtn = $('#modalCloseBtn');
-        const modalBody = $('#modalBody');
-        const canvas = $('#pdfCanvas');
-        const pageInfo = $('#pageInfo');
-        const zoomInfo = $('#zoomInfo');
-        const prevBtn = $('#prevBtn');
-        const nextBtn = $('#nextBtn');
-        const zoomInBtn = $('#zoomInBtn');
-        const zoomOutBtn = $('#zoomOutBtn');
+        // PDF viewer
+        const pdfViewer = $('#pdfViewer');
+        const pdfDocTitle = $('#pdfDocTitle');
+        const pdfCloseBtn = $('#pdfCloseBtn');
+        const pdfPrevBtn = $('#pdfPrevBtn');
+        const pdfNextBtn = $('#pdfNextBtn');
+        const pdfZoomOut = $('#pdfZoomOut');
+        const pdfZoomIn = $('#pdfZoomIn');
+        const pdfPageInfo = $('#pdfPageInfo');
+        const pdfZoomInfo = $('#pdfZoomInfo');
+        const pdfCanvas = $('#pdfCanvas');
         const pdfError = $('#pdfError');
         const pdfErrorMsg = $('#pdfErrorMsg');
+        const pdfViewerBody = $('#pdfViewerBody');
+
+        // PDF search
+        const pdfSearchInput = $('#pdfSearchInput');
+        const pdfSearchCount = $('#pdfSearchCount');
+        const pdfSearchPrev = $('#pdfSearchPrev');
+        const pdfSearchNext = $('#pdfSearchNext');
+        const pdfSearchToggle = $('#pdfSearchToggle');
+        const pdfSearchResultsPanel = $('#pdfSearchResults');
+        const pdfSearchResultsList = $('#pdfSearchResultsList');
+        const pdfSearchResultsClose = $('#pdfSearchResultsClose');
 
         // ============================================================
-        //  ПОИСКОВЫЙ ДВИЖОК (простой, но шустрый)
+        //  SEARCH ENGINE
         // ============================================================
         class SimpleSearch {
-            constructor() {
-                this.index = [];
-            }
+            constructor() { this.index = []; }
             add(doc) {
                 this.index.push({
                     id: doc.id,
@@ -992,8 +1040,8 @@
                 const words = query.toLowerCase().trim().split(/\s+/).filter(w => w.length > 0);
                 const results = [];
                 for (const entry of this.index) {
-                    let score = 0;
-                    let found = false;
+                    let score = 0,
+                        found = false;
                     for (const word of words) {
                         if (entry.title.includes(word)) { score += 12;
                             found = true; }
@@ -1001,9 +1049,7 @@
                         if (matches > 0) { score += matches;
                             found = true; }
                     }
-                    if (found) {
-                        results.push({ ref: entry.original.id, score, doc: entry.original });
-                    }
+                    if (found) results.push({ ref: entry.original.id, score, doc: entry.original });
                 }
                 results.sort((a, b) => b.score - a.score);
                 return results;
@@ -1011,7 +1057,7 @@
         }
 
         // ============================================================
-        //  ИЗВЛЕЧЕНИЕ ТЕКСТА ИЗ PDF
+        //  EXTRACT TEXT FROM PDF
         // ============================================================
         async function extractTextFromPDF(url) {
             try {
@@ -1031,7 +1077,7 @@
         }
 
         // ============================================================
-        //  ЗАГРУЗКА И ОБРАБОТКА ВСЕХ ДОКУМЕНТОВ
+        //  PROCESS DOCUMENTS
         // ============================================================
         async function processAllDocuments() {
             documents = [];
@@ -1049,11 +1095,9 @@
                     documents.push({ ...doc, text: '', pages: 0, error: err.message });
                     processed++;
                 }
-                // обновляем статус
                 headerStats.textContent = `Обработка… ${processed}/${total}`;
             }
 
-            // обновляем поисковый индекс
             searchEngine = new SimpleSearch();
             documents.forEach(d => searchEngine.add(d));
 
@@ -1062,7 +1106,7 @@
         }
 
         // ============================================================
-        //  ОТОБРАЖЕНИЕ
+        //  RENDER
         // ============================================================
         function updateStats() {
             const total = documents.length;
@@ -1073,10 +1117,7 @@
         }
 
         function renderDocuments() {
-            const filtered = documents.filter(d => {
-                if (currentFilter === 'all') return true;
-                return d.type === currentFilter;
-            });
+            const filtered = documents.filter(d => currentFilter === 'all' || d.type === currentFilter);
 
             if (filtered.length === 0) {
                 documentsList.style.display = 'none';
@@ -1091,33 +1132,28 @@
             resultCount.style.display = 'none';
 
             documentsList.innerHTML = filtered.map(doc => `
-                    <div class="document-card">
+                    <div class="document-card" data-url="${doc.url}" data-title="${doc.title.replace(/'/g, "\\'")}">
                         <span class="doc-type-badge ${doc.type}">${doc.type}</span>
                         <div class="doc-title">${doc.title}</div>
                         <div class="doc-fullname">${doc.fullName}</div>
                         <div class="doc-meta">
                             <span>📅 ${doc.year}</span>
                             <span>📄 ${doc.pages || '?'} стр.</span>
-                            ${doc.error ? `<span style="color:#c00;">⚠️ ошибка</span>` : ''}
                         </div>
-                        <button class="btn-open" data-url="${doc.url}" data-title="${doc.title.replace(/'/g, "\\'")}">
-                            📖 Открыть
-                        </button>
                     </div>
                 `).join('');
 
-            // обработчики для кнопок "Открыть"
-            documentsList.querySelectorAll('.btn-open').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const url = btn.dataset.url;
-                    const title = btn.dataset.title;
+            documentsList.querySelectorAll('.document-card').forEach(el => {
+                el.addEventListener('click', () => {
+                    const url = el.dataset.url;
+                    const title = el.dataset.title;
                     openPDF(url, title);
                 });
             });
         }
 
         // ============================================================
-        //  ПОИСК
+        //  SEARCH HANDLER
         // ============================================================
         function handleSearch() {
             const query = searchInput.value.trim();
@@ -1137,22 +1173,6 @@
         }
 
         function displaySearchResults(results, query) {
-            if (results.length === 0) {
-                searchResults.innerHTML = `
-                        <div class="empty-state">
-                            <span class="big-icon">🔍</span>
-                            <h3>Ничего не найдено</h3>
-                            <p>Попробуйте изменить запрос</p>
-                        </div>
-                    `;
-                searchResults.style.display = 'block';
-                documentsList.style.display = 'none';
-                resultCount.style.display = 'block';
-                resultCount.textContent = '0 результатов';
-                return;
-            }
-
-            // фильтруем по типу
             let filtered = results;
             if (currentFilter !== 'all') {
                 filtered = results.filter(r => r.doc.type === currentFilter);
@@ -1163,7 +1183,7 @@
                         <div class="empty-state">
                             <span class="big-icon">🔍</span>
                             <h3>Ничего не найдено</h3>
-                            <p>В выбранной категории нет совпадений</p>
+                            <p>Попробуйте изменить запрос</p>
                         </div>
                     `;
                 searchResults.style.display = 'block';
@@ -1180,14 +1200,14 @@
                         <div class="search-result-item" data-url="${doc.url}" data-title="${doc.title.replace(/'/g, "\\'")}">
                             <div class="search-result-title">${doc.title}</div>
                             <div class="search-result-context">${context}</div>
-                            <div class="search-result-page">${doc.fullName} →</div>
+                            <div style="font-size:12px;color:var(--gray-300);margin-top:4px;">${doc.fullName}</div>
                         </div>
                     `;
             }).join('');
 
             searchResults.innerHTML = `
-                    <div style="margin-bottom:12px;font-size:14px;color:var(--gray-500);">
-                        Найдено: <strong style="color:var(--gray-800);">${filtered.length}</strong>
+                    <div style="margin-bottom:10px;font-size:14px;color:var(--gray-400);">
+                        Найдено: <strong style="color:var(--gray-700);">${filtered.length}</strong>
                         ${currentFilter !== 'all' ? `в категории «${currentFilter}»` : ''}
                     </div>
                     ${html}
@@ -1198,12 +1218,9 @@
             resultCount.style.display = 'block';
             resultCount.textContent = `${filtered.length} результатов`;
 
-            // клик по результату → открываем PDF
             searchResults.querySelectorAll('.search-result-item').forEach(el => {
                 el.addEventListener('click', () => {
-                    const url = el.dataset.url;
-                    const title = el.dataset.title;
-                    openPDF(url, title);
+                    openPDF(el.dataset.url, el.dataset.title);
                 });
             });
         }
@@ -1223,78 +1240,203 @@
         }
 
         // ============================================================
-        //  ПРОСМОТР PDF
+        //  OPEN PDF VIEWER
         // ============================================================
         async function openPDF(url, title) {
-            modalTitle.textContent = title || 'Документ';
+            pdfDocTitle.textContent = title || 'Документ';
+            currentPdfTitle = title || 'Документ';
+            currentPdfUrl = url;
             pdfError.style.display = 'none';
-            canvas.style.display = 'block';
-            document.getElementById('pdfCanvasWrapper').style.display = 'block';
-
-            modal.classList.add('active');
+            pdfCanvas.style.display = 'block';
+            pdfViewer.classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            // Clear previous search
+            pdfSearchInput.value = '';
+            pdfSearchResults = [];
+            pdfSearchIndex = -1;
+            pdfSearchCount.textContent = '0/0';
+            pdfSearchResultsPanel.classList.remove('active');
 
             try {
                 pdfDoc = await pdfjsLib.getDocument(url).promise;
                 totalPages = pdfDoc.numPages;
                 currentPage = 1;
                 currentScale = 1.4;
+
+                // Extract full text for searching
+                let fullText = '';
+                for (let i = 1; i <= pdfDoc.numPages; i++) {
+                    const page = await pdfDoc.getPage(i);
+                    const content = await page.getTextContent();
+                    const text = content.items.map(item => item.str).join(' ');
+                    fullText += text + '\f';
+                }
+                currentPdfText = fullText;
+
                 renderPDFPage();
             } catch (err) {
                 console.error('PDF load error:', err);
-                canvas.style.display = 'none';
-                document.getElementById('pdfCanvasWrapper').style.display = 'none';
+                pdfCanvas.style.display = 'none';
                 pdfError.style.display = 'block';
                 pdfErrorMsg.textContent = `Не удалось загрузить PDF: ${err.message || 'файл не найден'}`;
                 pdfDoc = null;
+                currentPdfText = '';
             }
         }
 
+        // ============================================================
+        //  RENDER PDF PAGE
+        // ============================================================
         async function renderPDFPage() {
             if (!pdfDoc) return;
             try {
                 const page = await pdfDoc.getPage(currentPage);
                 const viewport = page.getViewport({ scale: currentScale });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-                const ctx = canvas.getContext('2d');
+                pdfCanvas.height = viewport.height;
+                pdfCanvas.width = viewport.width;
+                const ctx = pdfCanvas.getContext('2d');
                 await page.render({ canvasContext: ctx, viewport }).promise;
 
-                pageInfo.textContent = `Страница ${currentPage} из ${totalPages}`;
-                zoomInfo.textContent = Math.round(currentScale * 100) + '%';
-                prevBtn.disabled = currentPage === 1;
-                nextBtn.disabled = currentPage === totalPages;
+                pdfPageInfo.textContent = `${currentPage} / ${totalPages}`;
+                pdfZoomInfo.textContent = Math.round(currentScale * 100) + '%';
+                pdfPrevBtn.disabled = currentPage === 1;
+                pdfNextBtn.disabled = currentPage === totalPages;
+
+                // If we have search results, highlight matches on the page
+                // (simplified: we just re-render without highlights for performance)
+                // Highlights are shown in the sidebar list
             } catch (err) {
                 console.warn('renderPDFPage error:', err);
             }
         }
 
-        function prevPage() { if (currentPage > 1) { currentPage--;
+        // ============================================================
+        //  PDF NAVIGATION
+        // ============================================================
+        function pdfPrevPage() { if (currentPage > 1) { currentPage--;
                 renderPDFPage(); } }
 
-        function nextPage() { if (currentPage < totalPages) { currentPage++;
+        function pdfNextPage() { if (currentPage < totalPages) { currentPage++;
                 renderPDFPage(); } }
 
-        function changeZoom(delta) {
+        function pdfChangeZoom(delta) {
             currentScale = Math.max(0.4, Math.min(3.0, currentScale + delta));
             renderPDFPage();
         }
 
-        function closeModal() {
-            modal.classList.remove('active');
+        function closePDFViewer() {
+            pdfViewer.classList.remove('active');
             document.body.style.overflow = '';
             pdfDoc = null;
+            pdfSearchResultsPanel.classList.remove('active');
         }
 
         // ============================================================
-        //  СТАТУСНЫЕ СООБЩЕНИЯ
+        //  PDF SEARCH
+        // ============================================================
+        function pdfSearchInDocument() {
+            const query = pdfSearchInput.value.trim();
+            if (!query || query.length < 2 || !currentPdfText) {
+                pdfSearchResults = [];
+                pdfSearchIndex = -1;
+                pdfSearchCount.textContent = '0/0';
+                pdfSearchResultsPanel.classList.remove('active');
+                return;
+            }
+
+            const q = query.toLowerCase();
+            const pages = currentPdfText.split('\f');
+            const results = [];
+
+            pages.forEach((pageText, idx) => {
+                const pageNum = idx + 1;
+                const lower = pageText.toLowerCase();
+                let pos = lower.indexOf(q);
+                while (pos !== -1) {
+                    const start = Math.max(0, pos - 40);
+                    const end = Math.min(pageText.length, pos + q.length + 40);
+                    let snippet = pageText.substring(start, end);
+                    snippet = snippet.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'),
+                        m => `<mark>${m}</mark>`);
+                    results.push({
+                        page: pageNum,
+                        snippet: (start > 0 ? '…' : '') + snippet + (end < pageText.length ? '…' : ''),
+                        position: pos
+                    });
+                    pos = lower.indexOf(q, pos + 1);
+                }
+            });
+
+            pdfSearchResults = results;
+            pdfSearchIndex = results.length > 0 ? 0 : -1;
+            pdfSearchCount.textContent = results.length > 0 ? `1/${results.length}` : '0/0';
+
+            // Update sidebar
+            if (results.length > 0) {
+                pdfSearchResultsList.innerHTML = results.map((r, i) => `
+                        <div class="item" data-index="${i}">
+                            ${r.snippet}
+                            <span class="page-label">Страница ${r.page}</span>
+                        </div>
+                    `).join('');
+
+                pdfSearchResultsList.querySelectorAll('.item').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const idx = parseInt(el.dataset.index);
+                        goToPDFSearchResult(idx);
+                    });
+                });
+
+                pdfSearchResultsPanel.classList.add('active');
+                // Go to first result
+                goToPDFSearchResult(0);
+            } else {
+                pdfSearchResultsPanel.classList.remove('active');
+                pdfSearchResultsList.innerHTML = '<div class="empty">Ничего не найдено</div>';
+                pdfSearchResultsPanel.classList.add('active');
+            }
+        }
+
+        function goToPDFSearchResult(index) {
+            if (index < 0 || index >= pdfSearchResults.length) return;
+            pdfSearchIndex = index;
+            const result = pdfSearchResults[index];
+            currentPage = result.page;
+            pdfSearchCount.textContent = `${index + 1}/${pdfSearchResults.length}`;
+            renderPDFPage();
+
+            // Highlight the selected item in the list
+            pdfSearchResultsList.querySelectorAll('.item').forEach((el, i) => {
+                el.style.background = i === index ? 'rgba(0, 122, 255, 0.2)' : 'rgba(255,255,255,0.04)';
+            });
+        }
+
+        function pdfSearchPrevResult() {
+            if (pdfSearchResults.length === 0) return;
+            const newIdx = pdfSearchIndex > 0 ? pdfSearchIndex - 1 : pdfSearchResults.length - 1;
+            goToPDFSearchResult(newIdx);
+        }
+
+        function pdfSearchNextResult() {
+            if (pdfSearchResults.length === 0) return;
+            const newIdx = pdfSearchIndex < pdfSearchResults.length - 1 ? pdfSearchIndex + 1 : 0;
+            goToPDFSearchResult(newIdx);
+        }
+
+        function toggleSearchResults() {
+            if (pdfSearchResults.length === 0) return;
+            pdfSearchResultsPanel.classList.toggle('active');
+        }
+
+        // ============================================================
+        //  STATUS
         // ============================================================
         function showStatus(type, message) {
             const icons = { success: '✅', error: '⚠️', info: 'ℹ️' };
             statusBox.innerHTML = `
-                    <div class="status-msg ${type}">
-                        <span>${icons[type] || 'ℹ️'}</span>
-                        <span>${message}</span>
+                    <div style="padding:12px 18px;border-radius:10px;background:${type === 'error' ? '#fde8e8' : '#e8f5e9'};color:${type === 'error' ? '#b71c1c' : '#1e7a3a'};font-size:14px;">
+                        ${icons[type] || 'ℹ️'} ${message}
                     </div>
                 `;
             if (type === 'success' || type === 'info') {
@@ -1303,13 +1445,11 @@
         }
 
         // ============================================================
-        //  СОБЫТИЯ
+        //  EVENTS
         // ============================================================
         function setupEvents() {
-            // Поиск
+            // Main search
             searchInput.addEventListener('input', debounce(handleSearch, 250));
-
-            // Очистка
             clearBtn.addEventListener('click', () => {
                 searchInput.value = '';
                 clearBtn.classList.remove('visible');
@@ -1317,14 +1457,13 @@
                 searchInput.focus();
             });
 
-            // Фильтры
+            // Filters
             filterContainer.addEventListener('click', (e) => {
                 const btn = e.target.closest('.filter-btn');
                 if (!btn) return;
                 filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.dataset.type;
-                // если поиск активен — пересчитать, иначе просто перерисовать
                 if (searchInput.value.trim().length >= 2) {
                     handleSearch();
                 } else {
@@ -1332,22 +1471,39 @@
                 }
             });
 
-            // Модалка
-            modalCloseBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal();
-            });
+            // PDF viewer controls
+            pdfCloseBtn.addEventListener('click', closePDFViewer);
+            pdfPrevBtn.addEventListener('click', pdfPrevPage);
+            pdfNextBtn.addEventListener('click', pdfNextPage);
+            pdfZoomOut.addEventListener('click', () => pdfChangeZoom(-0.15));
+            pdfZoomIn.addEventListener('click', () => pdfChangeZoom(0.15));
+
+            // PDF search
+            pdfSearchInput.addEventListener('input', debounce(pdfSearchInDocument, 300));
+            pdfSearchPrev.addEventListener('click', pdfSearchPrevResult);
+            pdfSearchNext.addEventListener('click', pdfSearchNextResult);
+            pdfSearchToggle.addEventListener('click', toggleSearchResults);
+            pdfSearchResultsClose.addEventListener('click', () => pdfSearchResultsPanel.classList.remove('active'));
+
+            // Keyboard shortcuts in viewer
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeModal();
-                if (e.key === 'ArrowLeft' && modal.classList.contains('active')) prevPage();
-                if (e.key === 'ArrowRight' && modal.classList.contains('active')) nextPage();
+                if (!pdfViewer.classList.contains('active')) return;
+                if (e.key === 'Escape') closePDFViewer();
+                if (e.key === 'ArrowLeft') pdfPrevPage();
+                if (e.key === 'ArrowRight') pdfNextPage();
+                if (e.ctrlKey && e.key === 'f') {
+                    e.preventDefault();
+                    pdfSearchInput.focus();
+                    pdfSearchInput.select();
+                }
             });
 
-            // Управление PDF
-            prevBtn.addEventListener('click', prevPage);
-            nextBtn.addEventListener('click', nextPage);
-            zoomInBtn.addEventListener('click', () => changeZoom(0.15));
-            zoomOutBtn.addEventListener('click', () => changeZoom(-0.15));
+            // Close on backdrop click
+            pdfViewer.addEventListener('click', (e) => {
+                if (e.target === pdfViewer || e.target === pdfViewerBody) {
+                    closePDFViewer();
+                }
+            });
         }
 
         // ============================================================
@@ -1362,11 +1518,11 @@
         }
 
         // ============================================================
-        //  ЗАПУСК
+        //  INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', async () => {
             if (typeof pdfjsLib === 'undefined') {
-                showStatus('error', 'PDF.js не загружен. Проверьте интернет-соединение.');
+                showStatus('error', 'PDF.js не загружен. Проверьте интернет.');
                 loadingState.style.display = 'none';
                 return;
             }
@@ -1374,7 +1530,6 @@
             try {
                 loadingState.style.display = 'block';
                 documentsList.style.display = 'none';
-                emptyState.style.display = 'none';
 
                 await processAllDocuments();
 
@@ -1385,9 +1540,9 @@
 
                 const withText = documents.filter(d => d.text && d.text.length > 0).length;
                 if (withText === 0) {
-                    showStatus('info', '📄 Текст не извлечён ни из одного PDF. Убедитесь, что файлы лежат в папке <strong>documents/</strong> и доступны.');
+                    showStatus('info', '📄 Текст не извлечён. Убедитесь, что PDF-файлы лежат в папке <strong>documents/</strong>.');
                 } else {
-                    showStatus('success', `✅ Загружено ${documents.length} документов, поиск готов.`);
+                    showStatus('success', `✅ Загружено ${documents.length} документов. Поиск готов.`);
                 }
 
             } catch (err) {
