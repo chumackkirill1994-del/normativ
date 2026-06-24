@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нормативная база - Поиск по документам</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #2563eb;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .stats {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .document-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .document-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .doc-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .doc-fullname {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .doc-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 15px;
+        }
+
+        .doc-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-open {
+            width: 100%;
+            padding: 10px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-open:hover {
+            background: #1d4ed8;
+        }
+
+        .search-results {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .search-result-item {
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-result-item:hover {
+            background: #f9fafb;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .search-result-context {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .search-result-context mark {
+            background: #fef08a;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .search-result-page {
+            font-size: 13px;
+            color: #2563eb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        /* Модальное окно просмотра PDF */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 18px;
+            color: #1f2937;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .btn-close:hover {
+            color: #1f2937;
+        }
+
+        .pdf-container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .pdf-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .pdf-controls button {
+            padding: 8px 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .pdf-controls button:hover {
+            background: #1d4ed8;
+        }
+
+        .pdf-controls button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        #pdfCanvas {
+            max-width: 100%;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .page-info {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 Нормативная база автомобильных дорог</h1>
+            <p>Поиск по СП, ГОСТ, СНиП</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Поиск -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Введите текст для поиска по всем документам...">
+        </div>
+
+        <!-- Фильтры -->
+        <div class="filters">
+            <button class="filter-btn active" data-type="all">Все</button>
+            <button class="filter-btn" data-type="СП">СП</button>
+            <button class="filter-btn" data-type="ГОСТ">ГОСТ</button>
+            <button class="filter-btn" data-type="СНиП">СНиП</button>
+        </div>
+
+        <!-- Статистика -->
+        <div class="stats" id="stats">Загрузка документов...</div>
+
+        <!-- Результаты поиска -->
+        <div id="searchResults" style="display: none;"></div>
+
+        <!-- Список документов -->
+        <div id="documentsList" class="documents-grid"></div>
+
+        <!-- Пустое состояние -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div style="font-size: 48px; margin-bottom: 20px;">🔍</div>
+            <h3>Ничего не найдено</h3>
+            <p>Попробуйте изменить запрос или фильтры</p>
+        </div>
+
+        <!-- Загрузка -->
+        <div id="loadingState" class="loading">
+            <div class="spinner"></div>
+            <p>Загрузка и обработка документов...</p>
+            <p style="font-size: 14px; margin-top: 10px;">Первый запуск может занять несколько минут</p>
+        </div>
+    </main>
+
+    <!-- Модальное окно просмотра PDF -->
+    <div id="pdfModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Просмотр документа</h2>
+                <button class="btn-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-controls">
+                    <button onclick="prevPage()" id="prevBtn">← Предыдущая</button>
+                    <span id="pageInfo" class="page-info">Страница 1 из 1</span>
+                    <button onclick="nextPage()" id="nextBtn">Следующая →</button>
+                </div>
+                <canvas id="pdfCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- Lunr.js для поиска -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr/2.3.9/lunr.min.js"></script>
+
+    <script>
+        // Конфигурация документов
+        const DOCUMENTS = [
+            {
+                id: 'sp-34-2021',
+                title: 'СП 34.13330.2021',
+                fullName: 'Автомобильные дороги. Актуализированная редакция СНиП 2.05.02-85',
+                type: 'СП',
+                year: 2021,
+                url: 'documents/sp-34-13330-2021.pdf'
+            },
+            {
+                id: 'sp-396-2018',
+                title: 'СП 396.1325800.2018',
+                fullName: 'Улицы и дороги населенных пунктов. Правила градостроительного проектирования',
+                type: 'СП',
+                year: 2018,
+                url: 'documents/sp-396-1325800-2018.pdf'
+            },
+            {
+                id: 'gost-58653-2019',
+                title: 'ГОСТ Р 58653-2019',
+                fullName: 'Дороги автомобильные общего пользования. Пересечения и примыкания. Технические требования',
+                type: 'ГОСТ',
+                year: 2019,
+                url: 'documents/gost-r-58653-2019.pdf'
+            },
+            {
+                id: 'gost-52289-2019',
+                title: 'ГОСТ Р 52289-2019',
+                fullName: 'Технические средства организации дорожного движения. Правила применения дорожных знаков, разметки, светофоров',
+                type: 'ГОСТ',
+                year: 2019,
+                url: 'documents/gost-r-52289-2019.pdf'
+            },
+            {
+                id: 'gost-52766-2007',
+                title: 'ГОСТ Р 52766-2007',
+                fullName: 'Дороги автомобильные общего пользования. Элементы обустройства. Общие требования',
+                type: 'ГОСТ',
+                year: 2007,
+                url: 'documents/gost-r-52766-2007.pdf'
+            }
+            // Добавьте свои документы здесь
+        ];
+
+        // Глобальные переменные
+        let documents = [];
+        let searchIndex = null;
+        let currentFilter = 'all';
+        let pdfDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initializeApp();
+        });
+
+        async function initializeApp() {
+            try {
+                // Обработка всех документов
+                await processAllDocuments();
+                
+                // Построение поискового индекса
+                buildSearchIndex();
+                
+                // Отображение документов
+                renderDocuments();
+                
+                // Скрытие загрузки
+                document.getElementById('loadingState').style.display = 'none';
+                
+                // Настройка обработчиков
+                setupEventListeners();
+                
+            } catch (error) {
+                console.error('Ошибка инициализации:', error);
+                document.getElementById('loadingState').innerHTML = `
+                    <div style="color: #ef4444;">
+                        <h3>Ошибка загрузки</h3>
+                        <p>${error.message}</p>
+                        <p style="font-size: 14px; margin-top: 10px;">
+                            Убедитесь, что PDF файлы находятся в папке documents/
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        // Обработка всех документов (извлечение текста)
+        async function processAllDocuments() {
+            documents = [];
+            
+            for (const doc of DOCUMENTS) {
+                try {
+                    const text = await extractTextFromPDF(doc.url);
+                    documents.push({
+                        ...doc,
+                        text: text,
+                        pages: text.split('\f').length
+                    });
+                } catch (error) {
+                    console.warn(`Не удалось обработать ${doc.title}:`, error);
+                    documents.push({
+                        ...doc,
+                        text: '',
+                        pages: 0
+                    });
+                }
+            }
+            
+            updateStats();
+        }
+
+        // Извлечение текста из PDF
+        async function extractTextFromPDF(url) {
+            const pdf = await pdfjsLib.getDocument(url).promise;
+            let fullText = '';
+            
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += pageText + '\f'; // Разделитель страниц
+            }
+            
+            return fullText;
+        }
+
+        // Построение поискового индекса
+        function buildSearchIndex() {
+            searchIndex = lunr(function () {
+                this.ref('id');
+                this.field('title', { boost: 10 });
+                this.field('text');
+                
+                documents.forEach(doc => {
+                    this.add({
+                        id: doc.id,
+                        title: doc.title + ' ' + doc.fullName,
+                        text: doc.text
+                    });
+                });
+            });
+        }
+
+        // Отображение документов
+        function renderDocuments() {
+            const filteredDocs = documents.filter(doc => {
+                if (currentFilter === 'all') return true;
+                return doc.type === currentFilter;
+            });
+            
+            const list = document.getElementById('documentsList');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (filteredDocs.length === 0) {
+                list.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            list.style.display = 'grid';
+            emptyState.style.display = 'none';
+            
+            list.innerHTML = filteredDocs.map(doc => `
+                <div class="document-card" onclick="openPDF('${doc.url}', '${doc.title}')">
+                    <div class="doc-title">${doc.title}</div>
+                    <div class="doc-fullname">${doc.fullName}</div>
+                    <div class="doc-meta">
+                        <span>📅 ${doc.year}</span>
+                        <span>📑 ${doc.pages} стр.</span>
+                        <span> ${doc.type}</span>
+                    </div>
+                    <button class="btn-open">Открыть документ</button>
+                </div>
+            `).join('');
+        }
+
+        // Обновление статистики
+        function updateStats() {
+            const total = documents.length;
+            const totalText = documents.reduce((sum, doc) => sum + doc.text.length, 0);
+            document.getElementById('stats').textContent = 
+                `Загружено документов: ${total} | Обработано символов: ${totalText.toLocaleString()}`;
+        }
+
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            // Поиск
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', debounce(handleSearch, 300));
+            
+            // Фильтры
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.type;
+                    renderDocuments();
+                });
+            });
+        }
+
+        // Обработка поиска
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            const resultsDiv = document.getElementById('searchResults');
+            const listDiv = document.getElementById('documentsList');
+            
+            if (!query) {
+                resultsDiv.style.display = 'none';
+                listDiv.style.display = 'grid';
+                return;
+            }
+            
+            if (!searchIndex) return;
+            
+            try {
+                const results = searchIndex.search(query);
+                displaySearchResults(results, query);
+            } catch (error) {
+                console.error('Ошибка поиска:', error);
+            }
+        }
+
+        // Отображение результатов поиска
+        function displaySearchResults(results, query) {
+            const resultsDiv = document.getElementById('searchResults');
+            const listDiv = document.getElementById('documentsList');
+            
+            if (results.length === 0) {
+                resultsDiv.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size: 48px; margin-bottom: 20px;"></div>
+                        <h3>Ничего не найдено</h3>
+                        <p>Попробуйте изменить запрос</p>
+                    </div>
+                `;
+            } else {
+                resultsDiv.innerHTML = `
+                    <h3 style="margin-bottom: 15px;">Найдено результатов: ${results.length}</h3>
+                    ${results.map(result => {
+                        const doc = documents.find(d => d.id === result.ref);
+                        if (!doc) return '';
+                        
+                        const context = getContext(doc.text, query);
+                        
+                        return `
+                            <div class="search-result-item" onclick="openPDF('${doc.url}', '${doc.title}')">
+                                <div class="search-result-title">${doc.title}</div>
+                                <div class="search-result-context">${context}</div>
+                                <div class="search-result-page">${doc.fullName} →</div>
+                            </div>
+                        `;
+                    }).join('')}
+                `;
+            }
+            
+            resultsDiv.style.display = 'block';
+            listDiv.style.display = 'none';
+        }
+
+        // Получение контекста для поиска
+        function getContext(text, query) {
+            const lowerText = text.toLowerCase();
+            const lowerQuery = query.toLowerCase();
+            const index = lowerText.indexOf(lowerQuery);
+            
+            if (index === -1) return '...';
+            
+            const start = Math.max(0, index - 50);
+            const end = Math.min(text.length, index + query.length + 50);
+            
+            let context = text.substring(start, end);
+            context = context.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`);
+            
+            return (start > 0 ? '...' : '') + context + (end < text.length ? '...' : '');
+        }
+
+        // Открытие PDF
+        async function openPDF(url, title) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('pdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            try {
+                pdfDoc = await pdfjsLib.getDocument(url).promise;
+                totalPages = pdfDoc.numPages;
+                currentPage = 1;
+                renderPDFPage();
+            } catch (error) {
+                alert('Не удалось загрузить PDF: ' + error.message);
+            }
+        }
+
+        // Отображение страницы PDF
+        async function renderPDFPage() {
+            if (!pdfDoc) return;
+            
+            const page = await pdfDoc.getPage(currentPage);
+            const scale = 1.5;
+            const viewport = page.getViewport({ scale });
+            
+            const canvas = document.getElementById('pdfCanvas');
+            const context = canvas.getContext('2d');
+            
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            
+            await page.render({
+                canvasContext: context,
+                viewport: viewport
+            }).promise;
+            
+            document.getElementById('pageInfo').textContent = 
+                `Страница ${currentPage} из ${totalPages}`;
+            
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        }
+
+        // Навигация по страницам
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPDFPage();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPDFPage();
+            }
+        }
+
+        // Закрытие модального окна
+        function closeModal() {
+            document.getElementById('pdfModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            pdfDoc = null;
+        }
+
+        // Закрытие по клику вне модального окна
+        document.getElementById('pdfModal').addEventListener('click', (e) => {
+            if (e.target.id === 'pdfModal') {
+                closeModal();
+            }
+        });
+
+        // Debounce функция
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>
