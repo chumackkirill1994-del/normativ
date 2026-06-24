@@ -6,7 +6,7 @@
     <title>Нормативная база — Техэксперт</title>
     <style>
         /* ============================================
-           RESET & BASE
+           RESET & BASE — Neumorphism + Glassmorphism
            ============================================ */
         *,
         *::before,
@@ -17,20 +17,30 @@
         }
 
         :root {
-            --blue: #007aff;
-            --blue-hover: #0066d9;
-            --gray-50: #f5f5f7;
-            --gray-100: #e8e8ed;
-            --gray-200: #d1d1d6;
-            --gray-300: #aeaeb2;
-            --gray-400: #8e8e93;
-            --gray-500: #636366;
-            --gray-600: #48484a;
-            --gray-700: #2c2c2e;
-            --gray-800: #1c1c1e;
-            --radius: 12px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --blue: #4a8eff;
+            --blue-light: #6ba8ff;
+            --blue-dark: #2a6fd8;
+            --blue-glow: rgba(74, 142, 255, 0.25);
+            --white: #ffffff;
+            --gray-50: #f0f2f8;
+            --gray-100: #e6e9f2;
+            --gray-200: #d0d4e0;
+            --gray-300: #b0b6c8;
+            --gray-400: #8a92a8;
+            --gray-500: #6a7288;
+            --gray-600: #4a5268;
+            --gray-700: #2c3448;
+            --gray-800: #1a2236;
+            --shadow-soft: 8px 8px 20px rgba(0, 0, 0, 0.06), -8px -8px 20px rgba(255, 255, 255, 0.7);
+            --shadow-inset: inset 4px 4px 12px rgba(0, 0, 0, 0.04), inset -4px -4px 12px rgba(255, 255, 255, 0.8);
+            --shadow-focus: 0 0 0 4px rgba(74, 142, 255, 0.2), 8px 8px 24px rgba(0, 0, 0, 0.06);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-lg: 24px;
             --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
         }
 
         html {
@@ -41,18 +51,21 @@
         body {
             font-family: var(--font);
             background: var(--gray-50);
-            color: var(--gray-800);
+            color: var(--gray-700);
             line-height: 1.5;
+            min-height: 100vh;
         }
 
         /* ============================================
-           HEADER
+           GLASSMORPHISM HEADER
            ============================================ */
         .app-header {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: saturate(180%) blur(16px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 16px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            padding: 18px 0;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -75,27 +88,30 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .brand-icon {
-            width: 38px;
-            height: 38px;
-            background: var(--blue);
-            border-radius: 10px;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(145deg, var(--blue), var(--blue-dark));
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 22px;
             color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+            box-shadow: 6px 6px 16px rgba(74, 142, 255, 0.3), -4px -4px 12px rgba(255, 255, 255, 0.3);
         }
 
         .brand h1 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             letter-spacing: -0.02em;
-            color: var(--gray-800);
+            background: linear-gradient(135deg, var(--gray-700), var(--gray-500));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .brand .sub {
@@ -103,25 +119,30 @@
             color: var(--gray-400);
             display: block;
             margin-top: -2px;
+            -webkit-text-fill-color: var(--gray-400);
+            background: none;
         }
 
         .header-stats {
             font-size: 13px;
             color: var(--gray-400);
-            background: var(--gray-100);
-            padding: 6px 16px;
-            border-radius: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
         }
 
         /* ============================================
-           MAIN LAYOUT
+           MAIN
            ============================================ */
         .app-main {
-            padding: 24px 0 40px;
+            padding: 28px 0 60px;
         }
 
         /* ============================================
-           SEARCH SECTION
+           NEUMORPHIC SEARCH
            ============================================ */
         .search-section {
             margin-bottom: 24px;
@@ -130,33 +151,33 @@
         .search-wrapper {
             display: flex;
             align-items: center;
-            background: #fff;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border: 1.5px solid transparent;
-            transition: all 0.2s;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
         }
 
         .search-wrapper:focus-within {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.12), var(--shadow);
+            box-shadow: var(--shadow-focus);
+            border-color: var(--blue-light);
         }
 
         .search-wrapper .icon {
-            padding: 0 12px 0 16px;
+            padding: 0 14px 0 20px;
             font-size: 18px;
             color: var(--gray-300);
         }
 
         .search-wrapper input {
             flex: 1;
-            padding: 14px 16px 14px 0;
+            padding: 16px 16px 16px 0;
             font-size: 16px;
             border: none;
             outline: none;
             background: transparent;
             font-family: var(--font);
-            color: var(--gray-800);
+            color: var(--gray-700);
         }
 
         .search-wrapper input::placeholder {
@@ -166,49 +187,61 @@
         .search-wrapper .clear-btn {
             background: none;
             border: none;
-            padding: 0 16px;
+            padding: 0 20px;
             font-size: 18px;
             color: var(--gray-300);
             cursor: pointer;
             display: none;
+            transition: color 0.2s;
         }
 
         .search-wrapper .clear-btn.visible {
             display: block;
         }
+        .search-wrapper .clear-btn:hover {
+            color: var(--gray-500);
+        }
 
         /* ============================================
-           FILTERS
+           FILTERS — NEUMORPHIC
            ============================================ */
         .filters {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 24px;
         }
 
         .filter-btn {
-            padding: 6px 18px;
-            border: 1.5px solid var(--gray-200);
-            border-radius: 20px;
-            background: #fff;
+            padding: 8px 22px;
+            border: none;
+            border-radius: 30px;
+            background: var(--white);
             font-size: 13px;
             font-weight: 500;
-            color: var(--gray-500);
+            color: var(--gray-400);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s ease;
             font-family: var(--font);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .filter-btn:hover {
-            border-color: var(--gray-300);
-            color: var(--gray-700);
+            color: var(--gray-600);
+            transform: translateY(-1px);
+            box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.06), -6px -6px 16px rgba(255, 255, 255, 0.8);
         }
 
         .filter-btn.active {
-            background: var(--blue);
-            border-color: var(--blue);
+            background: linear-gradient(145deg, var(--blue), var(--blue-dark));
             color: #fff;
+            box-shadow: 6px 6px 16px rgba(74, 142, 255, 0.3), -4px -4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .filter-btn.active:hover {
+            box-shadow: 8px 8px 24px rgba(74, 142, 255, 0.4);
+            transform: translateY(-1px);
         }
 
         /* ============================================
@@ -226,84 +259,95 @@
         }
 
         .results-info strong {
-            color: var(--gray-700);
+            color: var(--gray-600);
         }
 
         /* ============================================
-           DOCUMENTS GRID
+           DOCUMENTS GRID — NEUMORPHIC CARDS
            ============================================ */
         .documents-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
+            gap: 20px;
         }
 
         .document-card {
-            background: #fff;
+            background: var(--white);
             border-radius: var(--radius);
-            padding: 20px 22px;
-            box-shadow: var(--shadow);
-            transition: all 0.2s;
-            border: 1px solid rgba(0, 0, 0, 0.02);
+            padding: 24px 26px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .document-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            border-color: rgba(0, 122, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 12px 12px 32px rgba(0, 0, 0, 0.07), -12px -12px 32px rgba(255, 255, 255, 0.8);
+            border-color: rgba(74, 142, 255, 0.15);
+        }
+
+        .document-card:active {
+            transform: translateY(0px);
+            box-shadow: var(--shadow-inset);
         }
 
         .doc-type-badge {
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
-            padding: 2px 12px;
-            border-radius: 12px;
+            letter-spacing: 0.05em;
+            padding: 3px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
             background: var(--gray-100);
             color: var(--gray-500);
-            display: inline-block;
-            margin-bottom: 8px;
         }
 
         .doc-type-badge.ГОСТ {
-            background: #e3f0ff;
-            color: #0051a8;
+            background: rgba(74, 142, 255, 0.12);
+            color: var(--blue-dark);
         }
 
         .doc-type-badge.СП {
-            background: #e8f5e9;
-            color: #1e7a3a;
+            background: rgba(52, 199, 89, 0.12);
+            color: #1a8a3a;
         }
 
         .doc-type-badge.СНиП {
-            background: #fff3e0;
+            background: rgba(255, 149, 0, 0.12);
             color: #b45a0e;
         }
 
         .doc-title {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 600;
-            color: var(--gray-800);
+            color: var(--gray-700);
             margin-bottom: 2px;
         }
 
         .doc-fullname {
             font-size: 13px;
             color: var(--gray-400);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .doc-meta {
             display: flex;
-            gap: 14px;
+            gap: 16px;
             font-size: 12px;
             color: var(--gray-300);
         }
 
+        .doc-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         /* ============================================
-           SEARCH RESULTS
+           SEARCH RESULTS — GLASS + NEUMORPHIC
            ============================================ */
         #searchResults {
             display: none;
@@ -311,24 +355,28 @@
         }
 
         .search-result-item {
-            background: #fff;
-            padding: 14px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 22px;
             border-radius: var(--radius);
-            border: 1px solid var(--gray-200);
-            margin-bottom: 8px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 10px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: var(--glass-shadow);
         }
 
         .search-result-item:hover {
-            border-color: var(--blue);
-            box-shadow: var(--shadow);
+            border-color: var(--blue-light);
+            box-shadow: 0 8px 32px rgba(74, 142, 255, 0.12);
+            transform: translateX(4px);
         }
 
         .search-result-title {
             font-weight: 600;
             font-size: 15px;
-            color: var(--gray-800);
+            color: var(--gray-700);
             margin-bottom: 2px;
         }
 
@@ -339,10 +387,17 @@
         }
 
         .search-result-context mark {
-            background: #ffd60a;
-            padding: 1px 4px;
-            border-radius: 3px;
+            background: rgba(74, 142, 255, 0.2);
+            padding: 1px 6px;
+            border-radius: 4px;
             font-weight: 600;
+            color: var(--blue-dark);
+        }
+
+        .search-result-page {
+            font-size: 12px;
+            color: var(--gray-300);
+            margin-top: 4px;
         }
 
         /* ============================================
@@ -352,6 +407,10 @@
             text-align: center;
             padding: 60px 20px;
             color: var(--gray-400);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
         }
 
         .empty-state .big-icon {
@@ -373,13 +432,14 @@
         }
 
         .spinner {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border: 4px solid var(--gray-200);
             border-top-color: var(--blue);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto 16px;
+            box-shadow: var(--shadow-soft);
         }
 
         @keyframes spin {
@@ -389,13 +449,15 @@
         }
 
         /* ============================================
-           PDF VIEWER (FULLSCREEN MODE)
+           PDF VIEWER — GLASS TOOLBAR
            ============================================ */
         .pdf-viewer-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: #1c1c1e;
+            background: rgba(26, 34, 54, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             z-index: 1000;
             flex-direction: column;
         }
@@ -405,9 +467,10 @@
         }
 
         .pdf-viewer-toolbar {
-            background: rgba(28, 28, 30, 0.95);
-            backdrop-filter: blur(16px);
-            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            padding: 14px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -415,13 +478,13 @@
             gap: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             flex-shrink: 0;
-            min-height: 60px;
+            min-height: 64px;
         }
 
         .pdf-viewer-toolbar .left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             min-width: 0;
         }
 
@@ -432,27 +495,28 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 300px;
+            max-width: 320px;
         }
 
         .pdf-viewer-toolbar .close-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             color: #fff;
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             font-size: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
             flex-shrink: 0;
         }
 
         .pdf-viewer-toolbar .close-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
+            transform: rotate(90deg);
         }
 
         .pdf-viewer-toolbar .controls {
@@ -463,29 +527,30 @@
         }
 
         .pdf-viewer-toolbar .controls button {
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
             font-size: 13px;
             font-family: var(--font);
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.25s ease;
             font-weight: 500;
         }
 
         .pdf-viewer-toolbar .controls button:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.16);
+            background: rgba(74, 142, 255, 0.3);
+            border-color: var(--blue-light);
         }
 
         .pdf-viewer-toolbar .controls button:disabled {
-            opacity: 0.3;
+            opacity: 0.25;
             cursor: not-allowed;
         }
 
         .pdf-viewer-toolbar .controls .page-info {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 13px;
             min-width: 80px;
             text-align: center;
@@ -498,24 +563,25 @@
         }
 
         .pdf-viewer-toolbar .controls .zoom-group span {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 13px;
             min-width: 44px;
             text-align: center;
         }
 
-        /* PDF Search inside viewer */
+        /* PDF Search */
         .pdf-viewer-toolbar .search-box {
             display: flex;
             align-items: center;
             background: rgba(255, 255, 255, 0.06);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: border-color 0.2s;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
         }
 
         .pdf-viewer-toolbar .search-box:focus-within {
-            border-color: var(--blue);
+            border-color: var(--blue-light);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .pdf-viewer-toolbar .search-box input {
@@ -523,19 +589,19 @@
             border: none;
             outline: none;
             color: #fff;
-            padding: 6px 10px;
+            padding: 6px 12px;
             font-size: 13px;
             font-family: var(--font);
-            width: 140px;
+            width: 150px;
         }
 
         .pdf-viewer-toolbar .search-box input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.25);
         }
 
         .pdf-viewer-toolbar .search-box .search-icon {
-            padding: 0 6px 0 10px;
-            color: rgba(255, 255, 255, 0.3);
+            padding: 0 6px 0 12px;
+            color: rgba(255, 255, 255, 0.25);
             font-size: 14px;
         }
 
@@ -543,13 +609,13 @@
             display: flex;
             align-items: center;
             gap: 2px;
-            padding-right: 4px;
+            padding-right: 6px;
         }
 
         .pdf-viewer-toolbar .search-box .search-nav button {
             background: none;
             border: none;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
             padding: 4px 8px;
             font-size: 14px;
             cursor: pointer;
@@ -558,7 +624,7 @@
         }
 
         .pdf-viewer-toolbar .search-box .search-nav button:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
         }
 
@@ -568,29 +634,64 @@
         }
 
         .pdf-viewer-toolbar .search-box .search-count {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
             font-size: 12px;
-            padding-right: 6px;
+            padding-right: 4px;
             min-width: 36px;
             text-align: center;
         }
 
+        /* Viewer Body */
         .pdf-viewer-body {
             flex: 1;
             overflow: auto;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            background: #1c1c1e;
+            background: transparent;
+            position: relative;
+        }
+
+        .pdf-viewer-body .page-wrapper {
+            position: relative;
+            display: inline-block;
+            border-radius: var(--radius-sm);
+            background: #fff;
+            box-shadow: 0 8px 60px rgba(0, 0, 0, 0.5);
         }
 
         .pdf-viewer-body canvas {
+            display: block;
             max-width: 100%;
             height: auto;
-            border-radius: 4px;
-            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
-            background: #fff;
+            border-radius: var(--radius-sm);
+        }
+
+        .highlight-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .highlight-overlay .hl {
+            position: absolute;
+            background: rgba(74, 142, 255, 0.25);
+            border: 1px solid rgba(74, 142, 255, 0.2);
+            border-radius: 2px;
+            pointer-events: none;
+            transition: all 0.2s;
+        }
+
+        .highlight-overlay .hl.active {
+            background: rgba(255, 180, 50, 0.45);
+            border-color: rgba(255, 180, 50, 0.4);
+            box-shadow: 0 0 20px rgba(255, 180, 50, 0.2);
         }
 
         .pdf-viewer-body .pdf-error {
@@ -619,22 +720,23 @@
         }
 
         /* ============================================
-           SEARCH RESULTS LIST inside viewer
+           SEARCH RESULTS SIDEBAR — GLASS
            ============================================ */
         .pdf-search-results {
             position: fixed;
-            right: 20px;
-            top: 80px;
-            bottom: 20px;
-            width: 320px;
-            background: rgba(28, 28, 30, 0.95);
-            backdrop-filter: blur(16px);
+            right: 24px;
+            top: 84px;
+            bottom: 24px;
+            width: 360px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(32px) saturate(180%);
+            -webkit-backdrop-filter: blur(32px) saturate(180%);
             border-radius: var(--radius);
             border: 1px solid rgba(255, 255, 255, 0.06);
             overflow: hidden;
             display: none;
             flex-direction: column;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 16px 60px rgba(0, 0, 0, 0.4);
             z-index: 1001;
         }
 
@@ -643,7 +745,7 @@
         }
 
         .pdf-search-results .header {
-            padding: 14px 18px;
+            padding: 16px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             justify-content: space-between;
@@ -652,7 +754,7 @@
         }
 
         .pdf-search-results .header h4 {
-            color: #fff;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
             font-weight: 500;
         }
@@ -660,9 +762,10 @@
         .pdf-search-results .header .close-btn {
             background: none;
             border: none;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
             font-size: 18px;
             cursor: pointer;
+            transition: color 0.2s;
         }
 
         .pdf-search-results .header .close-btn:hover {
@@ -672,37 +775,43 @@
         .pdf-search-results .list {
             flex: 1;
             overflow-y: auto;
-            padding: 8px 12px;
+            padding: 10px 14px;
         }
 
         .pdf-search-results .list .item {
-            padding: 10px 12px;
-            border-radius: 8px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
             background: rgba(255, 255, 255, 0.04);
             margin-bottom: 6px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.7);
             line-height: 1.5;
+            border-left: 2px solid transparent;
         }
 
         .pdf-search-results .list .item:hover {
             background: rgba(255, 255, 255, 0.08);
         }
 
+        .pdf-search-results .list .item.active {
+            background: rgba(74, 142, 255, 0.15);
+            border-left-color: var(--blue-light);
+        }
+
         .pdf-search-results .list .item mark {
-            background: #ffd60a;
-            padding: 1px 3px;
-            border-radius: 2px;
-            color: #1c1c1e;
+            background: rgba(74, 142, 255, 0.3);
+            padding: 1px 4px;
+            border-radius: 3px;
+            color: #fff;
             font-weight: 600;
         }
 
         .pdf-search-results .list .item .page-label {
             display: block;
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.25);
             margin-top: 4px;
         }
 
@@ -714,11 +823,39 @@
         }
 
         /* ============================================
+           FOOTER — Developer credit
+           ============================================ */
+        .app-footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .app-footer p {
+            font-size: 13px;
+            color: var(--gray-400);
+            letter-spacing: 0.02em;
+        }
+
+        .app-footer strong {
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .app-footer .heart {
+            color: #ff6b6b;
+        }
+
+        /* ============================================
            RESPONSIVE
            ============================================ */
         @media (max-width: 768px) {
             .pdf-viewer-toolbar {
-                padding: 10px 14px;
+                padding: 10px 16px;
                 flex-direction: column;
                 align-items: stretch;
                 gap: 8px;
@@ -738,15 +875,24 @@
             }
 
             .pdf-search-results {
-                right: 10px;
-                left: 10px;
+                right: 12px;
+                left: 12px;
                 width: auto;
                 top: 120px;
-                bottom: 10px;
+                bottom: 12px;
             }
 
             .documents-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .brand h1 {
+                font-size: 18px;
+            }
+            .brand-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
             }
         }
 
@@ -761,6 +907,13 @@
             }
             .pdf-viewer-toolbar .search-box input {
                 width: 80px;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .filter-btn {
+                padding: 6px 16px;
+                font-size: 12px;
             }
         }
     </style>
@@ -787,7 +940,6 @@
     <main class="app-main">
         <div class="container">
 
-            <!-- Status -->
             <div id="statusBox"></div>
 
             <!-- Search -->
@@ -835,9 +987,8 @@
         </div>
     </main>
 
-    <!-- ========== PDF VIEWER (FULLSCREEN) ========== -->
+    <!-- ========== PDF VIEWER ========== -->
     <div class="pdf-viewer-overlay" id="pdfViewer">
-        <!-- Toolbar -->
         <div class="pdf-viewer-toolbar">
             <div class="left">
                 <button class="close-btn" id="pdfCloseBtn">✕</button>
@@ -865,9 +1016,11 @@
             </div>
         </div>
 
-        <!-- Body -->
         <div class="pdf-viewer-body" id="pdfViewerBody">
-            <canvas id="pdfCanvas"></canvas>
+            <div class="page-wrapper" id="pageWrapper">
+                <canvas id="pdfCanvas"></canvas>
+                <div class="highlight-overlay" id="highlightOverlay"></div>
+            </div>
             <div id="pdfError" class="pdf-error" style="display:none;">
                 <span class="big-icon">⚠️</span>
                 <h3>Не удалось загрузить PDF</h3>
@@ -884,6 +1037,18 @@
         </div>
         <div class="list" id="pdfSearchResultsList"></div>
     </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>
+                Разработчик <strong>Чумак Кирилл</strong>
+                <span class="heart">❤</span>
+                <span style="color:var(--gray-300);">|</span>
+                Нормативная база автомобильных дорог
+            </p>
+        </div>
+    </footer>
 
     <!-- ========== PDF.js ========== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js">
@@ -958,7 +1123,6 @@
         let searchEngine = null;
         let currentFilter = 'all';
 
-        // PDF viewer state
         let pdfDoc = null;
         let currentPage = 1;
         let totalPages = 0;
@@ -966,10 +1130,11 @@
         let currentPdfUrl = '';
         let currentPdfText = '';
         let currentPdfTitle = '';
+        let currentPageText = '';
 
-        // PDF search state
         let pdfSearchResults = [];
         let pdfSearchIndex = -1;
+        let pdfHighlightData = [];
 
         // ============================================================
         //  INIT PDF.JS
@@ -997,7 +1162,6 @@
         const statusBox = $('#statusBox');
         const headerStats = $('#headerStats');
 
-        // PDF viewer
         const pdfViewer = $('#pdfViewer');
         const pdfDocTitle = $('#pdfDocTitle');
         const pdfCloseBtn = $('#pdfCloseBtn');
@@ -1011,8 +1175,9 @@
         const pdfError = $('#pdfError');
         const pdfErrorMsg = $('#pdfErrorMsg');
         const pdfViewerBody = $('#pdfViewerBody');
+        const pageWrapper = $('#pageWrapper');
+        const highlightOverlay = $('#highlightOverlay');
 
-        // PDF search
         const pdfSearchInput = $('#pdfSearchInput');
         const pdfSearchCount = $('#pdfSearchCount');
         const pdfSearchPrev = $('#pdfSearchPrev');
@@ -1200,14 +1365,14 @@
                         <div class="search-result-item" data-url="${doc.url}" data-title="${doc.title.replace(/'/g, "\\'")}">
                             <div class="search-result-title">${doc.title}</div>
                             <div class="search-result-context">${context}</div>
-                            <div style="font-size:12px;color:var(--gray-300);margin-top:4px;">${doc.fullName}</div>
+                            <div class="search-result-page">${doc.fullName}</div>
                         </div>
                     `;
             }).join('');
 
             searchResults.innerHTML = `
                     <div style="margin-bottom:10px;font-size:14px;color:var(--gray-400);">
-                        Найдено: <strong style="color:var(--gray-700);">${filtered.length}</strong>
+                        Найдено: <strong style="color:var(--gray-600);">${filtered.length}</strong>
                         ${currentFilter !== 'all' ? `в категории «${currentFilter}»` : ''}
                     </div>
                     ${html}
@@ -1248,10 +1413,11 @@
             currentPdfUrl = url;
             pdfError.style.display = 'none';
             pdfCanvas.style.display = 'block';
+            pageWrapper.style.display = 'block';
+            highlightOverlay.innerHTML = '';
             pdfViewer.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Clear previous search
             pdfSearchInput.value = '';
             pdfSearchResults = [];
             pdfSearchIndex = -1;
@@ -1264,7 +1430,6 @@
                 currentPage = 1;
                 currentScale = 1.4;
 
-                // Extract full text for searching
                 let fullText = '';
                 for (let i = 1; i <= pdfDoc.numPages; i++) {
                     const page = await pdfDoc.getPage(i);
@@ -1278,6 +1443,7 @@
             } catch (err) {
                 console.error('PDF load error:', err);
                 pdfCanvas.style.display = 'none';
+                pageWrapper.style.display = 'none';
                 pdfError.style.display = 'block';
                 pdfErrorMsg.textContent = `Не удалось загрузить PDF: ${err.message || 'файл не найден'}`;
                 pdfDoc = null;
@@ -1286,7 +1452,7 @@
         }
 
         // ============================================================
-        //  RENDER PDF PAGE
+        //  RENDER PDF PAGE WITH HIGHLIGHTS
         // ============================================================
         async function renderPDFPage() {
             if (!pdfDoc) return;
@@ -1298,16 +1464,86 @@
                 const ctx = pdfCanvas.getContext('2d');
                 await page.render({ canvasContext: ctx, viewport }).promise;
 
+                const content = await page.getTextContent();
+                currentPageText = content.items.map(item => item.str).join(' ');
+
                 pdfPageInfo.textContent = `${currentPage} / ${totalPages}`;
                 pdfZoomInfo.textContent = Math.round(currentScale * 100) + '%';
                 pdfPrevBtn.disabled = currentPage === 1;
                 pdfNextBtn.disabled = currentPage === totalPages;
 
-                // If we have search results, highlight matches on the page
-                // (simplified: we just re-render without highlights for performance)
-                // Highlights are shown in the sidebar list
+                buildHighlights(content.items, viewport);
+
             } catch (err) {
                 console.warn('renderPDFPage error:', err);
+            }
+        }
+
+        // ============================================================
+        //  BUILD HIGHLIGHTS
+        // ============================================================
+        function buildHighlights(textItems, viewport) {
+            highlightOverlay.innerHTML = '';
+            const query = pdfSearchInput.value.trim();
+            if (!query || query.length < 2 || pdfSearchResults.length === 0) {
+                return;
+            }
+
+            const q = query.toLowerCase();
+            const highlights = [];
+
+            textItems.forEach(item => {
+                const text = item.str;
+                const lower = text.toLowerCase();
+                let pos = lower.indexOf(q);
+                while (pos !== -1) {
+                    const tx = item.transform;
+                    const x = tx[4];
+                    const y = viewport.height - tx[5];
+                    const fontSize = item.height || item.fontSize || 12;
+                    const charWidth = fontSize * 0.55;
+                    const matchText = text.substring(pos, pos + q.length);
+                    const beforeWidth = text.substring(0, pos).length * charWidth;
+                    const matchWidth = matchText.length * charWidth;
+
+                    highlights.push({
+                        left: x + beforeWidth,
+                        top: y - fontSize * 0.8,
+                        width: Math.max(matchWidth, 4),
+                        height: fontSize * 1.1,
+                        page: currentPage,
+                        text: matchText
+                    });
+
+                    pos = lower.indexOf(q, pos + 1);
+                }
+            });
+
+            pdfHighlightData = highlights;
+
+            highlights.forEach((h, idx) => {
+                const el = document.createElement('div');
+                el.className = 'hl';
+                if (idx === pdfSearchIndex && pdfSearchResults.length > 0 &&
+                    pdfSearchResults[pdfSearchIndex]?.page === currentPage) {
+                    el.classList.add('active');
+                }
+                el.style.left = h.left + 'px';
+                el.style.top = h.top + 'px';
+                el.style.width = h.width + 'px';
+                el.style.height = h.height + 'px';
+                highlightOverlay.appendChild(el);
+            });
+
+            if (highlights.length > 0 && pdfSearchResults.length > 0) {
+                const firstHighlight = highlights[0];
+                const container = pdfViewerBody;
+                const canvasRect = pdfCanvas.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                const targetY = canvasRect.top + firstHighlight.top - containerRect.top - 120;
+                if (targetY > 0) {
+                    container.scrollTop = targetY;
+                }
             }
         }
 
@@ -1330,6 +1566,7 @@
             document.body.style.overflow = '';
             pdfDoc = null;
             pdfSearchResultsPanel.classList.remove('active');
+            highlightOverlay.innerHTML = '';
         }
 
         // ============================================================
@@ -1342,6 +1579,7 @@
                 pdfSearchIndex = -1;
                 pdfSearchCount.textContent = '0/0';
                 pdfSearchResultsPanel.classList.remove('active');
+                highlightOverlay.innerHTML = '';
                 return;
             }
 
@@ -1372,10 +1610,9 @@
             pdfSearchIndex = results.length > 0 ? 0 : -1;
             pdfSearchCount.textContent = results.length > 0 ? `1/${results.length}` : '0/0';
 
-            // Update sidebar
             if (results.length > 0) {
                 pdfSearchResultsList.innerHTML = results.map((r, i) => `
-                        <div class="item" data-index="${i}">
+                        <div class="item ${i === pdfSearchIndex ? 'active' : ''}" data-index="${i}">
                             ${r.snippet}
                             <span class="page-label">Страница ${r.page}</span>
                         </div>
@@ -1389,7 +1626,6 @@
                 });
 
                 pdfSearchResultsPanel.classList.add('active');
-                // Go to first result
                 goToPDFSearchResult(0);
             } else {
                 pdfSearchResultsPanel.classList.remove('active');
@@ -1404,12 +1640,12 @@
             const result = pdfSearchResults[index];
             currentPage = result.page;
             pdfSearchCount.textContent = `${index + 1}/${pdfSearchResults.length}`;
-            renderPDFPage();
 
-            // Highlight the selected item in the list
             pdfSearchResultsList.querySelectorAll('.item').forEach((el, i) => {
-                el.style.background = i === index ? 'rgba(0, 122, 255, 0.2)' : 'rgba(255,255,255,0.04)';
+                el.classList.toggle('active', i === index);
             });
+
+            renderPDFPage();
         }
 
         function pdfSearchPrevResult() {
@@ -1435,7 +1671,7 @@
         function showStatus(type, message) {
             const icons = { success: '✅', error: '⚠️', info: 'ℹ️' };
             statusBox.innerHTML = `
-                    <div style="padding:12px 18px;border-radius:10px;background:${type === 'error' ? '#fde8e8' : '#e8f5e9'};color:${type === 'error' ? '#b71c1c' : '#1e7a3a'};font-size:14px;">
+                    <div style="padding:12px 20px;border-radius:var(--radius-sm);background:${type === 'error' ? 'rgba(255,68,68,0.1)' : 'rgba(74,142,255,0.1)'};border:1px solid ${type === 'error' ? 'rgba(255,68,68,0.15)' : 'rgba(74,142,255,0.15)'};backdrop-filter:blur(10px);font-size:14px;color:${type === 'error' ? '#ff6b6b' : 'var(--blue-dark)'};">
                         ${icons[type] || 'ℹ️'} ${message}
                     </div>
                 `;
@@ -1448,7 +1684,6 @@
         //  EVENTS
         // ============================================================
         function setupEvents() {
-            // Main search
             searchInput.addEventListener('input', debounce(handleSearch, 250));
             clearBtn.addEventListener('click', () => {
                 searchInput.value = '';
@@ -1457,7 +1692,6 @@
                 searchInput.focus();
             });
 
-            // Filters
             filterContainer.addEventListener('click', (e) => {
                 const btn = e.target.closest('.filter-btn');
                 if (!btn) return;
@@ -1471,21 +1705,18 @@
                 }
             });
 
-            // PDF viewer controls
             pdfCloseBtn.addEventListener('click', closePDFViewer);
             pdfPrevBtn.addEventListener('click', pdfPrevPage);
             pdfNextBtn.addEventListener('click', pdfNextPage);
             pdfZoomOut.addEventListener('click', () => pdfChangeZoom(-0.15));
             pdfZoomIn.addEventListener('click', () => pdfChangeZoom(0.15));
 
-            // PDF search
             pdfSearchInput.addEventListener('input', debounce(pdfSearchInDocument, 300));
             pdfSearchPrev.addEventListener('click', pdfSearchPrevResult);
             pdfSearchNext.addEventListener('click', pdfSearchNextResult);
             pdfSearchToggle.addEventListener('click', toggleSearchResults);
             pdfSearchResultsClose.addEventListener('click', () => pdfSearchResultsPanel.classList.remove('active'));
 
-            // Keyboard shortcuts in viewer
             document.addEventListener('keydown', (e) => {
                 if (!pdfViewer.classList.contains('active')) return;
                 if (e.key === 'Escape') closePDFViewer();
@@ -1498,7 +1729,6 @@
                 }
             });
 
-            // Close on backdrop click
             pdfViewer.addEventListener('click', (e) => {
                 if (e.target === pdfViewer || e.target === pdfViewerBody) {
                     closePDFViewer();
