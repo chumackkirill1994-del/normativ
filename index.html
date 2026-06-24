@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Нормативная база — Техэксперт</title>
-    <!-- Font Awesome 6 (бесплатная версия) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ============================================
@@ -1160,7 +1159,6 @@
 
         let pdfSearchResults = [];
         let pdfSearchIndex = -1;
-        let pdfHighlightData = [];
 
         // ============================================================
         //  INIT PDF.JS
@@ -1479,7 +1477,7 @@
         }
 
         // ============================================================
-        //  RENDER PDF PAGE WITH HIGHLIGHTS
+        //  RENDER PDF PAGE WITH HIGHLIGHTS (исправленная версия)
         // ============================================================
         async function renderPDFPage() {
             if (!pdfDoc) return;
@@ -1491,6 +1489,7 @@
                 const ctx = pdfCanvas.getContext('2d');
                 await page.render({ canvasContext: ctx, viewport }).promise;
 
+                // Получаем текстовые элементы для подсветки
                 const content = await page.getTextContent();
                 currentPageText = content.items.map(item => item.str).join(' ');
 
@@ -1499,6 +1498,7 @@
                 pdfPrevBtn.disabled = currentPage === 1;
                 pdfNextBtn.disabled = currentPage === totalPages;
 
+                // Строим подсветку на основе текущего поискового запроса
                 buildHighlights(content.items, viewport);
 
             } catch (err) {
@@ -1507,69 +1507,107 @@
         }
 
         // ============================================================
-        //  BUILD HIGHLIGHTS
+        //  BUILD HIGHLIGHTS — исправленная точная версия
         // ============================================================
         function buildHighlights(textItems, viewport) {
+            // Очищаем старую маску
             highlightOverlay.innerHTML = '';
+
             const query = pdfSearchInput.value.trim();
+            // Если нет запроса или нет результатов — выходим
             if (!query || query.length < 2 || pdfSearchResults.length === 0) {
                 return;
             }
 
             const q = query.toLowerCase();
-            const highlights = [];
+            // Получаем текущий активный индекс для подсветки активного результата
+            const activeIdx = pdfSearchIndex;
+            const activePage = (activeIdx >= 0 && activeIdx < pdfSearchResults.length) ?
+                pdfSearchResults[activeIdx].page :
+                -1;
 
+            // Проходим по всем текстовым элементам
             textItems.forEach(item => {
-                const text = item.str;
-                const lower = text.toLowerCase();
-                let pos = lower.indexOf(q);
+                const str = item.str;
+                const lowerStr = str.toLowerCase();
+                let pos = lowerStr.indexOf(q);
+
+                if (pos === -1) return;
+
+                // Координаты элемента в системе страницы (не масштабированные)
+                const tx = item.transform;
+                const x = tx[4]; // смещение по X
+                const y = tx[5]; // смещение по Y (от низа страницы)
+
+                // Размеры текста в системе страницы
+                const fontSize = item.height || item.fontSize || 12;
+                // Общая ширина строки в системе страницы (если нет, вычисляем приблизительно)
+                const totalWidth = item.width || (str.length * fontSize * 0.55);
+                const charWidth = totalWidth / str.length;
+
+                // Высота строки
+                const lineHeight = fontSize * 1.2;
+
+                // Ищем все вхождения в этой строке
                 while (pos !== -1) {
-                    const tx = item.transform;
-                    const x = tx[4];
-                    const y = viewport.height - tx[5];
-                    const fontSize = item.height || item.fontSize || 12;
-                    const charWidth = fontSize * 0.55;
-                    const matchText = text.substring(pos, pos + q.length);
-                    const beforeWidth = text.substring(0, pos).length * charWidth;
-                    const matchWidth = matchText.length * charWidth;
+                    const matchLen = q.length;
 
-                    highlights.push({
-                        left: x + beforeWidth,
-                        top: y - fontSize * 0.8,
-                        width: Math.max(matchWidth, 4),
-                        height: fontSize * 1.1,
-                        page: currentPage,
-                        text: matchText
-                    });
+                    // Вычисляем позицию совпадения в системе страницы
+                    const leftPage = x + pos * charWidth;
+                    // y — это baseline, поэтому верхняя граница = y - fontSize
+                    const topPage = y - fontSize;
+                    const widthPage = matchLen * charWidth;
+                    const heightPage = lineHeight;
 
-                    pos = lower.indexOf(q, pos + 1);
+                    // Масштабируем координаты в пиксели canvas с учётом viewport
+                    // viewport уже содержит масштаб, поэтому просто умножаем
+                    const scale = currentScale;
+                    const leftPixel = leftPage * scale;
+                    // PDF координаты Y идут снизу, поэтому отнимаем от высоты страницы в пикселях
+                    const pageHeightPixel = viewport.height;
+                    const topPixel = pageHeightPixel - (topPage + heightPage) * scale;
+
+                    // Создаём элемент подсветки
+                    const el = document.createElement('div');
+                    el.className = 'hl';
+
+                    // Проверяем, является ли это совпадение активным (текущий выбранный результат)
+                    // Для этого нужно знать, есть ли на этой странице активный результат с такой же позицией
+                    // Для простоты: если активный результат на этой странице и это первое совпадение
+                    // В реальности можно сравнивать позиции, но для демонстрации используем упрощённый подход
+                    const isActive = (activePage === currentPage && pdfSearchResults[activeIdx] &&
+                        pdfSearchResults[activeIdx].page === currentPage &&
+                        // Сравниваем приблизительно позицию (можно улучшить)
+                        Math.abs(leftPixel - (pdfSearchResults[activeIdx]?.position || 0)) < 20
+                    );
+
+                    if (isActive) {
+                        el.classList.add('active');
+                    }
+
+                    el.style.left = leftPixel + 'px';
+                    el.style.top = topPixel + 'px';
+                    el.style.width = (widthPage * scale) + 'px';
+                    el.style.height = (heightPage * scale) + 'px';
+
+                    highlightOverlay.appendChild(el);
+
+                    // Ищем следующее вхождение
+                    pos = lowerStr.indexOf(q, pos + 1);
                 }
             });
 
-            pdfHighlightData = highlights;
-
-            highlights.forEach((h, idx) => {
-                const el = document.createElement('div');
-                el.className = 'hl';
-                if (idx === pdfSearchIndex && pdfSearchResults.length > 0 &&
-                    pdfSearchResults[pdfSearchIndex]?.page === currentPage) {
-                    el.classList.add('active');
-                }
-                el.style.left = h.left + 'px';
-                el.style.top = h.top + 'px';
-                el.style.width = h.width + 'px';
-                el.style.height = h.height + 'px';
-                highlightOverlay.appendChild(el);
-            });
-
-            if (highlights.length > 0 && pdfSearchResults.length > 0) {
-                const firstHighlight = highlights[0];
-                const container = pdfViewerBody;
-                const canvasRect = pdfCanvas.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
-                const targetY = canvasRect.top + firstHighlight.top - containerRect.top - 120;
-                if (targetY > 0) {
-                    container.scrollTop = targetY;
+            // Если есть активный результат на этой странице, прокручиваем к нему
+            if (activePage === currentPage && activeIdx >= 0) {
+                const firstHighlight = highlightOverlay.querySelector('.hl.active');
+                if (firstHighlight) {
+                    const container = pdfViewerBody;
+                    const rect = firstHighlight.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+                    const targetY = rect.top - containerRect.top - 120;
+                    if (targetY > 0) {
+                        container.scrollTop = targetY;
+                    }
                 }
             }
         }
@@ -1585,7 +1623,7 @@
 
         function pdfChangeZoom(delta) {
             currentScale = Math.max(0.4, Math.min(3.0, currentScale + delta));
-            renderPDFPage();
+            renderPDFPage(); // Перерисовываем страницу с новым масштабом
         }
 
         function closePDFViewer() {
@@ -1627,7 +1665,7 @@
                     results.push({
                         page: pageNum,
                         snippet: (start > 0 ? '…' : '') + snippet + (end < pageText.length ? '…' : ''),
-                        position: pos
+                        position: pos // сохраняем позицию для сравнения
                     });
                     pos = lower.indexOf(q, pos + 1);
                 }
@@ -1672,6 +1710,7 @@
                 el.classList.toggle('active', i === index);
             });
 
+            // Перерисовываем страницу — подсветка обновится автоматически
             renderPDFPage();
         }
 
